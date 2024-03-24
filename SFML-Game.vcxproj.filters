@@ -21,27 +21,6 @@
     <ClCompile Include="source\Button.cpp">
       <Filter>Quelldateien</Filter>
     </ClCompile>
-    <ClCompile Include="source\Level.cpp">
-      <Filter>Quelldateien</Filter>
-    </ClCompile>
-    <ClCompile Include="source\FallingObject.cpp">
-      <Filter>Quelldateien</Filter>
-    </ClCompile>
-    <ClCompile Include="source\Coin.cpp">
-      <Filter>Quelldateien</Filter>
-    </ClCompile>
-    <ClCompile Include="source\Bomb.cpp">
-      <Filter>Quelldateien</Filter>
-    </ClCompile>
-    <ClCompile Include="source\CustomFunctions.cpp">
-      <Filter>Quelldateien</Filter>
-    </ClCompile>
-    <ClCompile Include="source\Player.cpp">
-      <Filter>Quelldateien</Filter>
-    </ClCompile>
-    <ClCompile Include="source\Game.cpp">
-      <Filter>Quelldateien</Filter>
-    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="vendor\SFML\include\SFML\Audio.hpp">
@@ -347,25 +326,169 @@
     <ClInclude Include="source\Button.h">
       <Filter>Headerdateien</Filter>
     </ClInclude>
-    <ClInclude Include="source\Level.h">
+    <ClInclude Include="vendor\TGUI\include\TGUI\TGUI.hpp">
       <Filter>Headerdateien</Filter>
     </ClInclude>
-    <ClInclude Include="source\FallingObject.h">
+    <ClInclude Include="vendor\TGUI\include\TGUI\Core.hpp">
       <Filter>Headerdateien</Filter>
     </ClInclude>
-    <ClInclude Include="source\Coin.h">
+    <ClInclude Include="vendor\TGUI\include\TGUI\Backend\SFML-Graphics.hpp">
       <Filter>Headerdateien</Filter>
     </ClInclude>
-    <ClInclude Include="source\Bomb.h">
+    <ClInclude Include="vendor\TGUI\include\TGUI\Color.hpp">
       <Filter>Headerdateien</Filter>
     </ClInclude>
-    <ClInclude Include="source\CustomFunctions.h">
+    <ClInclude Include="vendor\TGUI\include\TGUI\Timer.hpp">
       <Filter>Headerdateien</Filter>
     </ClInclude>
-    <ClInclude Include="source\Player.h">
+    <ClInclude Include="vendor\TGUI\include\TGUI\ToolTip.hpp">
       <Filter>Headerdateien</Filter>
     </ClInclude>
-    <ClInclude Include="source\Game.h">
+    <ClInclude Include="vendor\TGUI\include\TGUI\Transform.hpp">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
+    <ClInclude Include="vendor\TGUI\include\TGUI\TwoFingerScrollDetect.hpp">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
+    <ClInclude Include="vendor\TGUI\include\TGUI\Utf.hpp">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
+    <ClInclude Include="vendor\TGUI\include\TGUI\Variant.hpp">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
+    <ClInclude Include="vendor\TGUI\include\TGUI\Vector2.hpp">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
+    <ClInclude Include="vendor\TGUI\include\TGUI\Vertex.hpp">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
+    <ClInclude Include="vendor\TGUI\include\TGUI\Widget.hpp">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
+    <ClInclude Include="vendor\TGUI\include\TGUI\WindowsIMM.hpp">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
+    <ClInclude Include="vendor\TGUI\include\TGUI\AbsoluteOrRelativeValue.hpp">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
+    <ClInclude Include="vendor\TGUI\include\TGUI\AllWidgets.hpp">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
+    <ClInclude Include="vendor\TGUI\include\TGUI\Animation.hpp">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
+    <ClInclude Include="vendor\TGUI\include\TGUI\Any.hpp">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
+    <ClInclude Include="vendor\TGUI\include\TGUI\Base64.hpp">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
+    <ClInclude Include="vendor\TGUI\include\TGUI\Components.hpp">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
+    <ClInclude Include="vendor\TGUI\include\TGUI\Config.hpp">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
+    <ClInclude Include="vendor\TGUI\include\TGUI\Container.hpp">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
+    <ClInclude Include="vendor\TGUI\include\TGUI\CopiedSharedPtr.hpp">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
+    <ClInclude Include="vendor\TGUI\include\TGUI\Cursor.hpp">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
+    <ClInclude Include="vendor\TGUI\include\TGUI\CustomWidgetForBindings.hpp">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
+    <ClInclude Include="vendor\TGUI\include\TGUI\DefaultBackendWindow.hpp">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
+    <ClInclude Include="vendor\TGUI\include\TGUI\DefaultFont.hpp">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
+    <ClInclude Include="vendor\TGUI\include\TGUI\Duration.hpp">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
+    <ClInclude Include="vendor\TGUI\include\TGUI\Event.hpp">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
+    <ClInclude Include="vendor\TGUI\include\TGUI\Exception.hpp">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
+    <ClInclude Include="vendor\TGUI\include\TGUI\FileDialogIconLoader.hpp">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
+    <ClInclude Include="vendor\TGUI\include\TGUI\Filesystem.hpp">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
+    <ClInclude Include="vendor\TGUI\include\TGUI\Font.hpp">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
+    <ClInclude Include="vendor\TGUI\include\TGUI\Global.hpp">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
+    <ClInclude Include="vendor\TGUI\include\TGUI\Keyboard.hpp">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
+    <ClInclude Include="vendor\TGUI\include\TGUI\Layout.hpp">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
+    <ClInclude Include="vendor\TGUI\include\TGUI\ObjectConverter.hpp">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
+    <ClInclude Include="vendor\TGUI\include\TGUI\Optional.hpp">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
+    <ClInclude Include="vendor\TGUI\include\TGUI\Outline.hpp">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
+    <ClInclude Include="vendor\TGUI\include\TGUI\Rect.hpp">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
+    <ClInclude Include="vendor\TGUI\include\TGUI\RelFloatRect.hpp">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
+    <ClInclude Include="vendor\TGUI\include\TGUI\RendererDefines.hpp">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
+    <ClInclude Include="vendor\TGUI\include\TGUI\RenderStates.hpp">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
+    <ClInclude Include="vendor\TGUI\include\TGUI\Signal.hpp">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
+    <ClInclude Include="vendor\TGUI\include\TGUI\SignalManager.hpp">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
+    <ClInclude Include="vendor\TGUI\include\TGUI\Sprite.hpp">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
+    <ClInclude Include="vendor\TGUI\include\TGUI\String.hpp">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
+    <ClInclude Include="vendor\TGUI\include\TGUI\StringView.hpp">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
+    <ClInclude Include="vendor\TGUI\include\TGUI\SubwidgetContainer.hpp">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
+    <ClInclude Include="vendor\TGUI\include\TGUI\SvgImage.hpp">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
+    <ClInclude Include="vendor\TGUI\include\TGUI\Text.hpp">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
+    <ClInclude Include="vendor\TGUI\include\TGUI\TextStyle.hpp">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
+    <ClInclude Include="vendor\TGUI\include\TGUI\Texture.hpp">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
+    <ClInclude Include="vendor\TGUI\include\TGUI\TextureData.hpp">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
+    <ClInclude Include="vendor\TGUI\include\TGUI\TextureManager.hpp">
       <Filter>Headerdateien</Filter>
     </ClInclude>
   </ItemGroup>
@@ -397,9 +520,9 @@
     <None Include="vendor\SFML\include\SFML\System\Vector3.inl">
       <Filter>Headerdateien</Filter>
     </None>
+    <None Include="vendor\TGUI\include\TGUI\Config.hpp.in" />
   </ItemGroup>
   <ItemGroup>
-    <Font Include="fonts\arial.ttf" />
-    <Font Include="source\arial.ttf" />
+    <Font Include="res\fonts\arial.ttf" />
   </ItemGroup>
 </Project>
