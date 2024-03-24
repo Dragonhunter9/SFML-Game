@@ -218,11 +218,12 @@ class Game {
     std::vector<Level> levels;
     unsigned int currentLevel;
     int coinSpawnTime;
+
     tgui::Gui gameGUI;
 
     void CreateLevels() {
         levels.reserve(5);
-        levels.emplace_back(1, 10, 100.0f, sf::Vector2i(1, 5), 4);
+        levels.emplace_back(1, 1, 100.0f, sf::Vector2i(1, 5), 4);
         levels.emplace_back(2, 10, 120.0f, sf::Vector2i(1, 4), 4);
         levels.emplace_back(3, 10, 160.0f, sf::Vector2i(1, 3), 3);
         levels.emplace_back(4, 10, 180.0f, sf::Vector2i(0, 3), 3);
@@ -241,6 +242,13 @@ class Game {
         }
     }
 
+    void NextLevel() {
+        gameStatus = Running;
+        player.ResetPosition(window);
+        deltaTimeClock.restart();
+        FallingObject::timer.restart();
+    }
+
     void ResetLevel() {
         FallingObject::objects.clear();
         player.score = 0;
@@ -252,7 +260,7 @@ class Game {
         gameStatus = Running;
     }
 
-    void DisplayTGUIPaueScreen() {
+    void DisplayPauseScreen() {
         tgui::Gui pauseGUI(window);
 
         auto button = tgui::Button::create("Pause");
@@ -264,15 +272,30 @@ class Game {
         pauseGUI.draw();
     }
 
-    void DisplayPauseScreen() {
-        sf::RectangleShape backGround(sf::Vector2f(205, 50));
-        backGround.setPosition(window.getSize().x / 2.0f - 100, window.getSize().y / 2.0f - 100);
-        backGround.setFillColor(sf::Color::Blue);
-        sf::Text pauseText("Game paused", font, 30);
-        pauseText.setPosition(window.getSize().x / 2.0f - pauseText.getGlobalBounds().width / 2.0f, window.getSize().y / 2.0f - pauseText.getGlobalBounds().width / 2.0f);
+    void DisplayTGUIWonScreen() {
+        if (levels.size() > currentLevel) {
+            tgui::Gui wonGUI(window);
 
-        window.draw(backGround);
-        window.draw(pauseText);
+            auto panel = tgui::Panel::create();
+            panel->setPosition(tgui::Layout2d("25%", "25%"));
+            panel->setSize(tgui::Layout2d("50%", "50%"));
+            wonGUI.add(panel);
+
+            auto label = tgui::Label::create("Congratulations!\nLevel " + std::to_string(currentLevel) + " completed\n\nPress ENTER to continue");  
+            label->setPosition(tgui::Layout2d("25%", "35%"));
+            label->setSize(tgui::Layout2d("50%", "50%"));
+            label->setTextSize(24);
+            label->setHorizontalAlignment(tgui::Label::HorizontalAlignment::Center);
+            wonGUI.add(label);
+
+            /*auto button = tgui::Button::create("Continue");
+            button->setPosition(tgui::Layout2d("50%", "40%"));
+            button->setSize(tgui::Layout2d("40%", "10%"));
+            button->onPress(NextLevel);
+            wonGUI.add(button);*/
+
+            wonGUI.draw();
+        }
     }
 
     void DisplayWonScreen() {
@@ -290,12 +313,8 @@ class Game {
             levelText.setFillColor(sf::Color::White);
 
             Button continueButton(window.getSize().x / 2.0f - 50, window.getSize().y / 2.0f + 30, 105, 45, "Continue", font);
-            if (sf::Mouse::isButtonPressed(sf::Mouse::Left) && continueButton.IsMouseOver(window)) {
-                gameStatus = Running;
-                player.ResetPosition(window);
-                deltaTimeClock.restart();
-                FallingObject::timer.restart();
-            }
+            if (sf::Mouse::isButtonPressed(sf::Mouse::Left) && continueButton.IsMouseOver(window))
+                NextLevel();
 
             window.draw(backGround);
             window.draw(wonText);
@@ -356,9 +375,9 @@ class Game {
         player.DrawLives(window);
 
         if (gameStatus == Paused)
-            DisplayTGUIPaueScreen();
+            DisplayPauseScreen();
         if (gameStatus == Won)
-            DisplayWonScreen();
+            DisplayTGUIWonScreen();
         if (gameStatus == GameOver)
             DisplayGameOverScreen();
 
@@ -375,7 +394,7 @@ class Game {
         UpdateLevel();
 
         if (Coin::timer.getElapsedTime().asSeconds() + Coin::pauseTime > coinSpawnTime) {
-            int coinSpawnTime = RandomNumber(levels[currentLevel].GetSpawnSpeed().x, levels[currentLevel].GetSpawnSpeed().y);
+            coinSpawnTime = RandomNumber(levels[currentLevel].GetSpawnSpeed().x, levels[currentLevel].GetSpawnSpeed().y);
             FallingObject::pauseTime = 0;
             if (RandomNumber(1, levels[currentLevel].GetBombPossiblity()) != levels[currentLevel].GetBombPossiblity()) {
                 Coin coin;
@@ -422,12 +441,8 @@ class Game {
                     FallingObject::timer.restart();
                 }
             }
-            if (!(levels.size() > currentLevel) && gameStatus == Won && (event.type == sf::Event::KeyReleased) && (event.key.code == sf::Keyboard::Enter)) {
-                gameStatus = Running;
-                player.ResetPosition(window);
-                deltaTimeClock.restart();
-                FallingObject::timer.restart();
-            }
+            if (levels.size() > currentLevel && gameStatus == Won && (event.type == sf::Event::KeyReleased) && (event.key.code == sf::Keyboard::Enter))
+                NextLevel();
             if (gameStatus == GameOver && (event.type == sf::Event::KeyReleased) && (event.key.code == sf::Keyboard::Enter))
                 ResetLevel();
         }
@@ -445,6 +460,7 @@ public:
         font.loadFromFile("arial.ttf");
         CreateLevels();
         coinSpawnTime = RandomNumber(levels[currentLevel].GetSpawnSpeed().x, levels[currentLevel].GetSpawnSpeed().y);
+        tgui::Theme::setDefault("vendor/TGUI/themes/Black.txt");
     }
 
     void RunGame() {

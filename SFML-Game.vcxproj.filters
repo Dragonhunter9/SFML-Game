@@ -21,6 +21,12 @@
     <ClCompile Include="source\Button.cpp">
       <Filter>Quelldateien</Filter>
     </ClCompile>
+    <ClCompile Include="source\GUI\GuiStyle.cpp">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="source\GUI\GuiEntry.cpp">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="vendor\SFML\include\SFML\Audio.hpp">
@@ -491,6 +497,12 @@
     <ClInclude Include="vendor\TGUI\include\TGUI\TextureManager.hpp">
       <Filter>Headerdateien</Filter>
     </ClInclude>
+    <ClInclude Include="source\GUI\GuiStyle.h">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
+    <ClInclude Include="source\GUI\GuiEntry.h">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="vendor\SFML\include\SFML\Graphics\Glsl.inl">
@@ -523,6 +535,6 @@
     <None Include="vendor\TGUI\include\TGUI\Config.hpp.in" />
   </ItemGroup>
   <ItemGroup>
-    <Font Include="res\fonts\arial.ttf" />
+    <Font Include="source\arial.ttf" />
   </ItemGroup>
 </Project>
