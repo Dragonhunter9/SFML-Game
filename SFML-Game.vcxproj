@@ -149,14 +149,12 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="source\GUI\GuiEntry.cpp" />
-    <ClCompile Include="source\GUI\GuiStyle.cpp" />
+    <ClCompile Include="source\GUI\Gui.cpp" />
     <ClCompile Include="source\Button.cpp" />
     <ClCompile Include="source\main.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="source\GUI\GuiEntry.h" />
-    <ClInclude Include="source\GUI\GuiStyle.h" />
+    <ClInclude Include="source\GUI\Gui.h" />
     <ClInclude Include="source\Button.h" />
     <ClInclude Include="vendor\SFML\include\SFML\Audio.hpp" />
     <ClInclude Include="vendor\SFML\include\SFML\Audio\AlResource.hpp" />

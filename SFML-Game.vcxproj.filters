@@ -21,10 +21,7 @@
     <ClCompile Include="source\Button.cpp">
       <Filter>Quelldateien</Filter>
     </ClCompile>
-    <ClCompile Include="source\GUI\GuiStyle.cpp">
-      <Filter>Quelldateien</Filter>
-    </ClCompile>
-    <ClCompile Include="source\GUI\GuiEntry.cpp">
+    <ClCompile Include="source\GUI\Gui.cpp">
       <Filter>Quelldateien</Filter>
     </ClCompile>
   </ItemGroup>
@@ -497,10 +494,7 @@
     <ClInclude Include="vendor\TGUI\include\TGUI\TextureManager.hpp">
       <Filter>Headerdateien</Filter>
     </ClInclude>
-    <ClInclude Include="source\GUI\GuiStyle.h">
-      <Filter>Headerdateien</Filter>
-    </ClInclude>
-    <ClInclude Include="source\GUI\GuiEntry.h">
+    <ClInclude Include="source\GUI\Gui.h">
       <Filter>Headerdateien</Filter>
     </ClInclude>
   </ItemGroup>

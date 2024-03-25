@@ -3,6 +3,8 @@
 #include "TGUI/TGUI.hpp"
 #include <TGUI/Backend/SFML-Graphics.hpp>
 
+#include "GUI/Gui.h"
+
 #include "Button.h"
 
 static int RandomNumber(const int min, const int max) {
@@ -220,6 +222,8 @@ class Game {
     int coinSpawnTime;
 
     tgui::Gui gameGUI;
+    owngui::GuiStyle guiStyle;
+    std::map<std::string, owngui::Gui> guiSystem;
 
     void CreateLevels() {
         levels.reserve(5);
@@ -256,12 +260,44 @@ class Game {
         player.ResetPosition(window);
         deltaTimeClock.restart();
         FallingObject::timer.restart();
-
+        
         gameStatus = Running;
     }
 
+    void loadGuiConfigs() {
+        guiSystem.emplace("menu", owngui::Gui(sf::Vector2f(192, 32), 4, false, guiStyle, {std::make_pair("Pause", "pause")}));
+    }
+
     void DisplayPauseScreen() {
-        tgui::Gui pauseGUI(window);
+        std::vector<std::pair<std::string, std::string>> vec = {
+
+        { "Entry 1", "First entry" },
+
+        { "Entry 2", "Second entry" }
+
+        };
+
+        owngui::GuiStyle style(&font, 1,
+
+            sf::Color(0xc6, 0xc6, 0xc6), sf::Color(0x94, 0x94, 0x94), sf::Color(0x00, 0x00, 0x00),
+
+            sf::Color(0x61, 0x61, 0x61), sf::Color(0x94, 0x94, 0x94), sf::Color(0x00, 0x00, 0x00)
+
+        );
+
+        owngui::Gui gui(sf::Vector2f(192, 32), 4, false, style, vec);
+
+        //gui.setPosition(200,200);
+        //gui.setOrigin(96, 16);
+        //gui.show();
+
+        guiSystem.at("menu").setPosition(200, 200);
+        guiSystem.at("menu").setOrigin(96, 16);
+        guiSystem.at("menu").show();
+
+        for (auto& gui : this->guiSystem) window.draw(gui.second);
+
+        /*tgui::Gui pauseGUI(window);
 
         auto button = tgui::Button::create("Pause");
         button->setSize(tgui::Layout2d("50%", "12.5%"));
@@ -269,7 +305,7 @@ class Game {
         button->setTextSize(24);
 
         pauseGUI.add(button);
-        pauseGUI.draw();
+        pauseGUI.draw();*/
     }
 
     void DisplayTGUIWonScreen() {
@@ -427,24 +463,67 @@ class Game {
         while (window.pollEvent(event)) {
             gameGUI.handleEvent(event);
 
-            if (event.type == sf::Event::Closed)
+            switch (event.type) {
+            case sf::Event::Closed:
                 window.close();
-            if ((event.type == sf::Event::KeyReleased) && (event.key.code == sf::Keyboard::P))
-            {
-                if (gameStatus == Running) {
-                    gameStatus = Paused;
-                    FallingObject::pauseTime = FallingObject::timer.getElapsedTime().asSeconds();
+                break;
+
+            case sf::Event::KeyPressed:
+                switch (event.key.code) {
+                case sf::Keyboard::P:
+                    switch (gameStatus) {
+                    case Running:
+                        gameStatus = Paused;
+                        FallingObject::pauseTime = FallingObject::timer.getElapsedTime().asSeconds();
+                        break;
+                    case Paused:
+                        gameStatus = Running;
+                        deltaTimeClock.restart();
+                        FallingObject::timer.restart();
+                        break;
+                    }
+                    break;
+                case sf::Keyboard::Enter:
+                    switch (gameStatus) {
+                    case GameOver:
+                        ResetLevel();
+                        break;
+                    case Won:
+                        if (levels.size() > currentLevel)
+                            NextLevel();
+                        break;
+                    }
+                    break;
                 }
-                else if (gameStatus == Paused) {
-                    gameStatus = Running;
-                    deltaTimeClock.restart();
-                    FallingObject::timer.restart();
+                break;
+
+            case sf::Event::MouseButtonPressed:
+                switch (event.mouseButton.button) {
+                case sf::Mouse::Left:
+                    std::string msg = this->guiSystem.at("menu").activate((sf::Vector2f)sf::Mouse::getPosition());
+                    
+                    if (msg == "First Entry")
+                    {
+                        gameStatus = Running;
+                    }
                 }
+                break;
             }
-            if (levels.size() > currentLevel && gameStatus == Won && (event.type == sf::Event::KeyReleased) && (event.key.code == sf::Keyboard::Enter))
-                NextLevel();
-            if (gameStatus == GameOver && (event.type == sf::Event::KeyReleased) && (event.key.code == sf::Keyboard::Enter))
-                ResetLevel();
+
+            
+                
+            {
+                if (event.mouseButton.button == sf::Mouse::Left)
+                {
+                    //std::string msg = this->guiSystem.at("menu").activate(mousePos);
+                    //
+                    //if (msg == "load_game")
+                    //{
+                    //    this->loadgame();
+                    //}
+                }
+                break;
+            }
         }
     }
 
@@ -455,12 +534,14 @@ public:
         deltaTimeClock(),
         gameStatus(Running),
         levelDisplay("Level: " + std::to_string(currentLevel + 1), font, 24),
-        gameGUI(window)
+        gameGUI(window),
+        guiStyle(&font, 1, sf::Color(0xc6, 0xc6, 0xc6), sf::Color(0x94, 0x94, 0x94), sf::Color(0x00, 0x00, 0x00), sf::Color(0x61, 0x61, 0x61), sf::Color(0x94, 0x94, 0x94), sf::Color(0x00, 0x00, 0x00))
     {
         font.loadFromFile("arial.ttf");
         CreateLevels();
         coinSpawnTime = RandomNumber(levels[currentLevel].GetSpawnSpeed().x, levels[currentLevel].GetSpawnSpeed().y);
         tgui::Theme::setDefault("vendor/TGUI/themes/Black.txt");
+        loadGuiConfigs();
     }
 
     void RunGame() {
