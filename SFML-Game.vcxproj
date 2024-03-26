@@ -116,7 +116,7 @@
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
       <SDLCheck>true</SDLCheck>
-      <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions);TGUI_STATIC</PreprocessorDefinitions>
+      <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions);SFML_STATIC;TGUI_STATIC</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <AdditionalIncludeDirectories>§(ProjectDir)vendor\SFML\include;$(ProjectDir)vendor\TGUI\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
@@ -124,7 +124,8 @@
       <SubSystem>Windows</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <AdditionalLibraryDirectories>$(ProjectDir)vendor\SFML\lib;$(ProjectDir)vendor\TGUI\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>sfml-system.lib;sfml-window.lib;sfml-graphics.lib;sfml-main.lib;tgui-s-d.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>winmm.lib;opengl32.lib;gdi32.lib;freetype.lib;sfml-system-s-d.lib;sfml-window-s-d.lib;sfml-graphics-s-d.lib;tgui-s-d.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <EntryPointSymbol>mainCRTStartup</EntryPointSymbol>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -149,13 +150,19 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="source\Game.cpp" />
+    <ClCompile Include="source\Player.cpp" />
+    <ClCompile Include="source\FallingObjects.cpp" />
+    <ClCompile Include="source\Level.cpp" />
     <ClCompile Include="source\GUI\Gui.cpp" />
-    <ClCompile Include="source\Button.cpp" />
     <ClCompile Include="source\main.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="source\GUI\Gui.h" />
-    <ClInclude Include="source\Button.h" />
+    <ClInclude Include="source\Game.hpp" />
+    <ClInclude Include="source\Player.hpp" />
+    <ClInclude Include="source\FallingObjects.hpp" />
+    <ClInclude Include="source\Level.hpp" />
+    <ClInclude Include="source\GUI\Gui.hpp" />
     <ClInclude Include="vendor\SFML\include\SFML\Audio.hpp" />
     <ClInclude Include="vendor\SFML\include\SFML\Audio\AlResource.hpp" />
     <ClInclude Include="vendor\SFML\include\SFML\Audio\Export.hpp" />
