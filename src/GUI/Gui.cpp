@@ -1,7 +1,7 @@
 #include "Gui.hpp"
-
 #include <SFML/Graphics.hpp>
 #include <string>
+
 namespace owngui {
 	GuiStyle::GuiStyle() : borderSize(0.0f), font(nullptr) {}
 

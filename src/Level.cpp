@@ -1,7 +1,5 @@
 #include "Level.hpp"
 
-int RandomNumber(const int min, const int max);
-
 // Constructors
 
 Level::Level() : levelNumber(0), requiredScore(1), fallingSpeed(100.0f), spawnSpeed(sf::Vector2i(1, 4)), bombPossibility(4) {}

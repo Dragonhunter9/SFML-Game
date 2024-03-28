@@ -3,8 +3,7 @@
 #include "Entity/Player.hpp"
 #include "Level.hpp"
 #include "GUI/Gui.hpp"
-
-int RandomNumber(const int min, const int max);
+#include "Utility/Math.hpp"
 
 class Game {
     enum GameState {

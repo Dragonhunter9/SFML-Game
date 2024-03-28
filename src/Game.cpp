@@ -1,4 +1,5 @@
 #include "Game.hpp"
+#include "Utility/Math.hpp"
 
 void Game::createLevels() {
     levels.reserve(5);
@@ -205,9 +206,9 @@ void Game::UpdateGame() {
     updateLevel();
 
     if (FallingObject::timer.getElapsedTime().asSeconds() + FallingObject::pauseTime > objectSpawnTime) {
-        objectSpawnTime = RandomNumber(levels[currentLevel].GetSpawnSpeed().x, levels[currentLevel].GetSpawnSpeed().y);
+        objectSpawnTime = Math::RandomNumber(levels[currentLevel].GetSpawnSpeed().x, levels[currentLevel].GetSpawnSpeed().y);
         FallingObject::pauseTime = 0;
-        if (RandomNumber(1, levels[currentLevel].GetBombPossiblity()) != levels[currentLevel].GetBombPossiblity()) {
+        if (Math::RandomNumber(1, levels[currentLevel].GetBombPossiblity()) != levels[currentLevel].GetBombPossiblity()) {
             Coin coin;
             //FallingObject::objects.emplace_back(std::make_unique<Coin>());
             FallingObject::objects.emplace_back(new Coin);
@@ -316,7 +317,7 @@ Game::Game() : window(sf::VideoMode(windowWidth, windowHeight), "Bounce Ball"),
 {
     font.loadFromFile("assets/fonts/arial.ttf");
     createLevels();
-    objectSpawnTime = RandomNumber(levels[currentLevel].GetSpawnSpeed().x, levels[currentLevel].GetSpawnSpeed().y);
+    objectSpawnTime = Math::RandomNumber(levels[currentLevel].GetSpawnSpeed().x, levels[currentLevel].GetSpawnSpeed().y);
     //tgui::Theme::setDefault("vendor/TGUI/themes/Black.txt");
     loadGuiConfigs();
 }

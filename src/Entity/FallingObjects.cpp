@@ -1,6 +1,5 @@
 #include "FallingObjects.hpp"
-
-int RandomNumber(const int min, const int max);
+#include "Utility/Math.hpp"
 
 void FallingObject::Move(const float deltaTime) {
     if (drawObject) {
@@ -53,14 +52,14 @@ float FallingObject::velocity = 100.0f;
 
 Coin::Coin() {
     object.setFillColor(sf::Color::Yellow);
-    object.setPosition((float)RandomNumber((int)object.getRadius(), 800 - (int)object.getRadius()), -20.f);
+    object.setPosition((float)Math::RandomNumber((int)object.getRadius(), 800 - (int)object.getRadius()), -20.f);
 }
 
 FallingObject::ObjectType Coin::GetType() const { return ObjectType::Coin; }
 
 Bomb::Bomb() {
     object.setFillColor(sf::Color(128, 128, 128));
-    object.setPosition((float)RandomNumber((int)object.getRadius(), 800 - (int)object.getRadius()), -20.f);
+    object.setPosition((float)Math::RandomNumber((int)object.getRadius(), 800 - (int)object.getRadius()), -20.f);
 }
 
 Bomb::Bomb(const float playerPos) {

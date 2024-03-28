@@ -151,6 +151,8 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="src\GameState\GameState_LevelMode.cpp" />
+    <ClCompile Include="src\Utility\Math.cpp" />
     <ClCompile Include="src\Game.cpp" />
     <ClCompile Include="src\Entity\Player.cpp" />
     <ClCompile Include="src\Entity\FallingObjects.cpp" />
@@ -159,6 +161,8 @@
     <ClCompile Include="src\main.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\GameState\GameState_LevelMode.hpp" />
+    <ClInclude Include="src\Utility\Math.hpp" />
     <ClInclude Include="src\GameState\GameState.hpp" />
     <ClInclude Include="src\Game.hpp" />
     <ClInclude Include="src\Entity\Player.hpp" />
