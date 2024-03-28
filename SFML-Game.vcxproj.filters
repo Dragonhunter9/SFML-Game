@@ -15,13 +15,22 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="source\main.cpp">
+    <ClCompile Include="src\main.cpp">
       <Filter>Quelldateien</Filter>
     </ClCompile>
-    <ClCompile Include="source\Button.cpp">
+    <ClCompile Include="src\GUI\Gui.cpp">
       <Filter>Quelldateien</Filter>
     </ClCompile>
-    <ClCompile Include="source\GUI\Gui.cpp">
+    <ClCompile Include="src\Game.cpp">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Entity\Player.cpp">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Entity\FallingObjects.cpp">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Level.cpp">
       <Filter>Quelldateien</Filter>
     </ClCompile>
   </ItemGroup>
@@ -326,9 +335,6 @@
     <ClInclude Include="vendor\SFML\include\SFML\Window\WindowStyle.hpp">
       <Filter>Headerdateien</Filter>
     </ClInclude>
-    <ClInclude Include="source\Button.h">
-      <Filter>Headerdateien</Filter>
-    </ClInclude>
     <ClInclude Include="vendor\TGUI\include\TGUI\TGUI.hpp">
       <Filter>Headerdateien</Filter>
     </ClInclude>
@@ -494,7 +500,22 @@
     <ClInclude Include="vendor\TGUI\include\TGUI\TextureManager.hpp">
       <Filter>Headerdateien</Filter>
     </ClInclude>
-    <ClInclude Include="source\GUI\Gui.h">
+    <ClInclude Include="src\Game.hpp">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Entity\Player.hpp">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Entity\FallingObjects.hpp">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Level.hpp">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
+    <ClInclude Include="src\GUI\Gui.hpp">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
+    <ClInclude Include="src\GameState\GameState.hpp">
       <Filter>Headerdateien</Filter>
     </ClInclude>
   </ItemGroup>

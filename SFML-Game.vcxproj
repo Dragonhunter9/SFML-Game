@@ -84,6 +84,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions);TGUI_STATIC</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
+      <AdditionalIncludeDirectories>;$(ProjectDir)src</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -100,7 +101,7 @@
       <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;%(PreprocessorDefinitions);TGUI_STATIC</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpp20</LanguageStandard>
-      <AdditionalIncludeDirectories>$(ProjectDir)vendor\TGUI\include</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir)vendor\TGUI\include;$(ProjectDir)src</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -118,7 +119,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions);SFML_STATIC;TGUI_STATIC</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>§(ProjectDir)vendor\SFML\include;$(ProjectDir)vendor\TGUI\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>§(ProjectDir)vendor\SFML\include;$(ProjectDir)vendor\TGUI\include;%(AdditionalIncludeDirectories);$(ProjectDir)src</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -136,7 +137,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions);SFML_STATIC;TGUI_STATIC</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>§(ProjectDir)vendor\SFML\include;$(ProjectDir)vendor\TGUI\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>§(ProjectDir)vendor\SFML\include;$(ProjectDir)vendor\TGUI\include;%(AdditionalIncludeDirectories);$(ProjectDir)src</AdditionalIncludeDirectories>
       <LanguageStandard>stdcpp20</LanguageStandard>
     </ClCompile>
     <Link>
@@ -150,19 +151,20 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="source\Game.cpp" />
-    <ClCompile Include="source\Player.cpp" />
-    <ClCompile Include="source\FallingObjects.cpp" />
-    <ClCompile Include="source\Level.cpp" />
-    <ClCompile Include="source\GUI\Gui.cpp" />
-    <ClCompile Include="source\main.cpp" />
+    <ClCompile Include="src\Game.cpp" />
+    <ClCompile Include="src\Entity\Player.cpp" />
+    <ClCompile Include="src\Entity\FallingObjects.cpp" />
+    <ClCompile Include="src\Level.cpp" />
+    <ClCompile Include="src\GUI\Gui.cpp" />
+    <ClCompile Include="src\main.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="source\Game.hpp" />
-    <ClInclude Include="source\Player.hpp" />
-    <ClInclude Include="source\FallingObjects.hpp" />
-    <ClInclude Include="source\Level.hpp" />
-    <ClInclude Include="source\GUI\Gui.hpp" />
+    <ClInclude Include="src\GameState\GameState.hpp" />
+    <ClInclude Include="src\Game.hpp" />
+    <ClInclude Include="src\Entity\Player.hpp" />
+    <ClInclude Include="src\Entity\FallingObjects.hpp" />
+    <ClInclude Include="src\Level.hpp" />
+    <ClInclude Include="src\GUI\Gui.hpp" />
     <ClInclude Include="vendor\SFML\include\SFML\Audio.hpp" />
     <ClInclude Include="vendor\SFML\include\SFML\Audio\AlResource.hpp" />
     <ClInclude Include="vendor\SFML\include\SFML\Audio\Export.hpp" />

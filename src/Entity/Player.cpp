@@ -16,7 +16,7 @@ void Player::Move(const sf::RenderWindow& window, const float deltaTime) {
     }
     if (ball.getPosition().x + ball.getRadius() * 2 < window.getSize().x) {
         if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right) || sf::Keyboard::isKeyPressed(sf::Keyboard::D)) {
-            ball.move(velocity * deltaTime, 0);
+            ball.move(velocity * deltaTime, 0); 
         }
     }
     if (ball.getPosition().y > 0) {
@@ -26,7 +26,7 @@ void Player::Move(const sf::RenderWindow& window, const float deltaTime) {
     }
     if (ball.getPosition().y + ball.getRadius() * 2 < window.getSize().y) {
         if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down) || sf::Keyboard::isKeyPressed(sf::Keyboard::S)) {
-            ball.move(0, velocity * deltaTime);
+            ball.move(0, velocity * deltaTime); 
         }
     }
 }

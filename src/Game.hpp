@@ -1,6 +1,6 @@
 #pragma once
 #include "SFML/Graphics.hpp"
-#include "Player.hpp"
+#include "Entity/Player.hpp"
 #include "Level.hpp"
 #include "GUI/Gui.hpp"
 

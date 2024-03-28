@@ -314,7 +314,7 @@ Game::Game() : window(sf::VideoMode(windowWidth, windowHeight), "Bounce Ball"),
                //gameGUI(window),
                guiStyle(&font, 1, sf::Color(0xc6, 0xc6, 0xc6), sf::Color(0x94, 0x94, 0x94), sf::Color(0x00, 0x00, 0x00), sf::Color(0x61, 0x61, 0x61), sf::Color(0x94, 0x94, 0x94), sf::Color(0x00, 0x00, 0x00))
 {
-    font.loadFromFile("arial.ttf");
+    font.loadFromFile("assets/fonts/arial.ttf");
     createLevels();
     objectSpawnTime = RandomNumber(levels[currentLevel].GetSpawnSpeed().x, levels[currentLevel].GetSpawnSpeed().y);
     //tgui::Theme::setDefault("vendor/TGUI/themes/Black.txt");
