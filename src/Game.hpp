@@ -6,6 +6,7 @@
 #include "Utility/Math.hpp"
 
 class Game {
+public:
     enum GameState {
         Running = 0, Paused, Won, GameOver
     };
@@ -51,7 +52,6 @@ class Game {
 
     void ProcessEventsAndInputs();
 
-public:
     Game();
 
     void RunGame();
