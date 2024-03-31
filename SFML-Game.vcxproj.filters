@@ -30,9 +30,6 @@
     <ClCompile Include="src\Entity\FallingObjects.cpp">
       <Filter>Quelldateien</Filter>
     </ClCompile>
-    <ClCompile Include="src\Level.cpp">
-      <Filter>Quelldateien</Filter>
-    </ClCompile>
     <ClCompile Include="src\Utility\Math.cpp">
       <Filter>Quelldateien</Filter>
     </ClCompile>
@@ -513,9 +510,6 @@
       <Filter>Headerdateien</Filter>
     </ClInclude>
     <ClInclude Include="src\Entity\FallingObjects.hpp">
-      <Filter>Headerdateien</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Level.hpp">
       <Filter>Headerdateien</Filter>
     </ClInclude>
     <ClInclude Include="src\GUI\Gui.hpp">

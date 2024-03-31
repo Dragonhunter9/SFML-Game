@@ -1,13 +1,11 @@
-#include <random>
-#include "SFML/Graphics.hpp"
-#include "TGUI/TGUI.hpp"
-#include <TGUI/Backend/SFML-Graphics.hpp>
-
 #include "Game.hpp"
+#include "GameState/GameState_LevelMode.hpp"
 
 int main() {
     Game game;
-    game.RunGame();
+
+    game.pushState(new GameState_LevelMode(&game));
+    game.gameloop();
 
     return 0;
 }

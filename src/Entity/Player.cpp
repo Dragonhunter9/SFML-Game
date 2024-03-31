@@ -4,10 +4,6 @@ Player::Player(const sf::RenderWindow& window) : ball(10.0f), velocity(300.0f) {
     ball.setPosition(window.getSize().x / 2.0f, window.getSize().y / 2.0f);
 }
 
-void Player::Draw(sf::RenderWindow& window) const {
-    window.draw(ball);
-}
-
 void Player::Move(const sf::RenderWindow& window, const float deltaTime) {
     if (ball.getPosition().x > 0) {
         if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left) || sf::Keyboard::isKeyPressed(sf::Keyboard::A)) {
@@ -64,4 +60,9 @@ void Player::DrawLives(sf::RenderWindow& window) const {
 
 sf::Vector2f Player::GetPosition() const {
     return ball.getPosition();
+}
+
+void Player::draw(sf::RenderTarget& target, sf::RenderStates states) const
+{
+    target.draw(ball);
 }

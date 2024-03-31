@@ -1,58 +1,36 @@
 #pragma once
+#include <stack>
 #include "SFML/Graphics.hpp"
 #include "Entity/Player.hpp"
-#include "Level.hpp"
 #include "GUI/Gui.hpp"
 #include "Utility/Math.hpp"
 
-class Game {
-public:
-    enum GameState {
-        Running = 0, Paused, Won, GameOver
-    };
+class GameState;
 
+class Game {
+private:
+    //void loadTextures();
+    void loadStylesheets();
+    //void loadFonts();
+
+public:
     const int windowWidth = 800;
     const int windowHeight = 600;
     sf::RenderWindow window;
-    Player player;
-    sf::Text scoreDisplay;
-    sf::Text levelDisplay;
     sf::Font font;
-    sf::Clock deltaTimeClock;
-    GameState gameStatus;
-    std::vector<Level> levels;
-    unsigned int currentLevel;
-    int objectSpawnTime;
+    std::stack<GameState*> states;
 
     //tgui::Gui gameGUI;
-    owngui::GuiStyle guiStyle;
-    std::map<std::string, owngui::Gui> guiSystem;
+    std::map<std::string, GuiStyle> guiStylesheets;
+    std::map<std::string, Gui> guiSystem;
 
-    void createLevels();
+    void pushState(GameState* state);
+    void popState();
+    void changeState(GameState* state);
+    GameState* peekState();
 
-    void updateLevel();
-
-    void nextLevel();
-
-    void resetLevel();
-
-    void loadGuiConfigs();
-
-    void displayPauseScreen();
-
-    void displayTGUIWonScreen();
-
-    void displayWonScreen();
-
-    void displayGameOverScreen();
-
-    void DrawGame();
-
-    void UpdateGame();
-
-    void ProcessEventsAndInputs();
+    void gameloop();
 
     Game();
-
-    void RunGame();
+    ~Game();
 };

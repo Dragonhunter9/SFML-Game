@@ -2,18 +2,16 @@
 #include "SFML/Graphics.hpp"
 #include "FallingObjects.hpp"
 
-class Player {
+class Player : public sf::Drawable {
 private:
     sf::CircleShape ball;
     float velocity;
 
 public:
-    unsigned int score = 0;
-    unsigned char lives = 3;
+    int score = 0;
+    char lives = 3;
 
     Player(const sf::RenderWindow& window);
-
-    void Draw(sf::RenderWindow& window) const;
 
     void Move(const sf::RenderWindow& window, const float deltaTime);
 
@@ -24,4 +22,6 @@ public:
     void DrawLives(sf::RenderWindow& window) const;
 
     sf::Vector2f GetPosition() const;
+
+    virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const;
 };
