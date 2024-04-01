@@ -17,7 +17,7 @@ bool FallingObject::TestIfDraw(const sf::RenderWindow& window) {
 
 FallingObject::ObjectType FallingObject::GetType() const { return ObjectType::FallingObj; }
 
-FallingObject::FallingObject() : object(10.0f), drawObject(true) {}
+FallingObject::FallingObject() : radius(10), object((float)radius), drawObject(true) {}
 
 void FallingObject::DrawAllObjects(sf::RenderWindow& window) {
     for (const std::unique_ptr<FallingObject>& loopObject : objects) {
@@ -59,7 +59,7 @@ FallingObject::ObjectType Coin::GetType() const { return ObjectType::Coin; }
 
 Bomb::Bomb() {
     object.setFillColor(sf::Color(128, 128, 128));
-    object.setPosition((float)Math::RandomNumber((int)object.getRadius(), 800 - (int)object.getRadius()), -20.f);
+    object.setPosition((float)Math::RandomNumber(radius, 800 - radius), -20.f);
 }
 
 Bomb::Bomb(const float playerPos) {

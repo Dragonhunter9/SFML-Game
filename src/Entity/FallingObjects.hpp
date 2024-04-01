@@ -3,6 +3,8 @@
 
 class FallingObject {
 protected:
+    const int radius;
+
     sf::CircleShape object;
 
     void Move(const float deltaTime);

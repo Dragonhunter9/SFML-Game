@@ -27,7 +27,7 @@ void GameState_LevelMode::draw(const float deltaTime)
     if (gameStatus == Paused)
         displayPauseScreen();
     if (gameStatus == Won)
-        displayTGUIWonScreen();
+        displayWonScreen();
     if (gameStatus == GameOver)
         displayGameOverScreen();
 }
@@ -43,13 +43,10 @@ void GameState_LevelMode::update(const float deltaTime)
             objectSpawnTime = Math::RandomNumber(levels[currentLevel].GetSpawnSpeed().x, levels[currentLevel].GetSpawnSpeed().y);
             FallingObject::pauseTime = 0;
             if (Math::RandomNumber(1, levels[currentLevel].GetBombPossiblity()) != levels[currentLevel].GetBombPossiblity()) {
-                Coin coin;
-                //FallingObject::objects.emplace_back(std::make_unique<Coin>());
                 FallingObject::objects.emplace_back(new Coin);
             }
             else {
-                Bomb bomb(player.GetPosition().x);
-                FallingObject::objects.emplace_back(new Bomb);
+                FallingObject::objects.emplace_back(new Bomb(player.GetPosition().x));
             }
 
             FallingObject::timer.restart();
@@ -106,15 +103,15 @@ void GameState_LevelMode::handleInput()
             switch (event.mouseButton.button) {
             case sf::Mouse::Left:
                 break;
-                //if (guiSystem.at("menu").visible) {
-                //    std::string msg = guiSystem.at("menu").activate((sf::Vector2f)sf::Mouse::getPosition(game->window));
-                //    if (msg == "pause")
-                //    {
-                //        gameStatus = Running;
-                //        //deltaTimeClock.restart();
-                //        FallingObject::timer.restart();
-                //    }
-                //}
+                if (guiSystem.at("pauseMenu").visible) {
+                    std::string msg = guiSystem.at("pauseMenu").activate((sf::Vector2f)sf::Mouse::getPosition(game->window));
+                    if (msg == "pause")
+                    {
+                        gameStatus = Running;
+                        //deltaTimeClock.restart();
+                        FallingObject::timer.restart();
+                    }
+                }
             }
             break;
         }
@@ -161,34 +158,17 @@ void GameState_LevelMode::resetLevel() {
 }
 
 void GameState_LevelMode::displayPauseScreen() {
-    /*std::vector<std::pair<std::string, std::string>> vec = {
-
-    { "Entry 1", "First entry" },
-
-    { "Entry 2", "Second entry" }
-
-    };*/
-
     GuiStyle style(&game->font, 1,
-
         sf::Color(0xc6, 0xc6, 0xc6), sf::Color(0x94, 0x94, 0x94), sf::Color(0x00, 0x00, 0x00),
+        sf::Color(0x61, 0x61, 0x61), sf::Color(0x94, 0x94, 0x94), sf::Color(0x00, 0x00, 0x00));
 
-        sf::Color(0x61, 0x61, 0x61), sf::Color(0x94, 0x94, 0x94), sf::Color(0x00, 0x00, 0x00)
+    guiSystem.emplace("pauseMenu", Gui(sf::Vector2f(192, 32), 4, false, style, {std::make_pair("Pause", "pause")}));
 
-    );
+    guiSystem.at("pauseMenu").setPosition(200, 200);
+    guiSystem.at("pauseMenu").setOrigin(96, 16);
+    guiSystem.at("pauseMenu").show();
 
-    //Gui gui(sf::Vector2f(192, 32), 4, false, style, vec);
-
-    //gui.setPosition(200,200);
-    //gui.setOrigin(96, 16);
-    //gui.show();
-
-    //guiSystem.at("menu").setPosition(200, 200);
-    //guiSystem.at("menu").setOrigin(96, 16);
-    //guiSystem.at("menu").show();
-
-    for (auto& gui : this->guiSystem)
-        game->window.draw(gui.second);
+    game->window.draw(guiSystem.at("pauseMenu"));
 
     /*tgui::Gui pauseGUI(window);
 
@@ -280,9 +260,9 @@ void GameState_LevelMode::displayGameOverScreen() {
     backGround.setPosition(game->window.getSize().x / 2.0f - 200, game->window.getSize().y / 2.0f - 100);
     backGround.setFillColor(sf::Color(100, 149, 237)); // Dodger Blue
 
-    sf::Text wonText("Game over!", game->font, 40);
-    wonText.setPosition(game->window.getSize().x / 2.0f - wonText.getGlobalBounds().width / 2.0f, game->window.getSize().y / 2.0f - 70);
-    wonText.setFillColor(sf::Color::White);
+    sf::Text gameoverText("Game over!", game->font, 40);
+    gameoverText.setPosition(game->window.getSize().x / 2.0f - gameoverText.getGlobalBounds().width / 2.0f, game->window.getSize().y / 2.0f - 70);
+    gameoverText.setFillColor(sf::Color::White);
 
     //Button continueButton(window.getSize().x / 2.0f - 50, window.getSize().y / 2.0f + 30, 125, 45, "Try again", font);
     //if (sf::Mouse::isButtonPressed(sf::Mouse::Left) && continueButton.IsMouseOver(window)) {
@@ -290,7 +270,7 @@ void GameState_LevelMode::displayGameOverScreen() {
     //}
 
     game->window.draw(backGround);
-    game->window.draw(wonText);
+    game->window.draw(gameoverText);
     //continueButton.Draw(window);
 }
 
@@ -309,6 +289,4 @@ GameState_LevelMode::GameState_LevelMode(Game* game) : player(game->window),
     //this->guiSystem.at("menu").setPosition(sf::Vector2f(game->window.getSize()));
     //this->guiSystem.at("menu").setOrigin(96, 16);
     //this->guiSystem.at("menu").show();
-
-
 }
