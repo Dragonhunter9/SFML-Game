@@ -43,19 +43,15 @@ private:
 	std::map<std::string, Gui> guiSystem;
 
     void createLevels();
-
     void updateLevel();
-
     void nextLevel();
-
     void resetLevel();
 
+    void loadGUI();
+
     void displayPauseScreen();
-
     void displayTGUIWonScreen();
-
     void displayWonScreen();
-
     void displayGameOverScreen();
 
 public:

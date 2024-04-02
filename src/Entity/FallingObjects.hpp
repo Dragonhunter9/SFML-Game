@@ -1,13 +1,13 @@
 #pragma once
 #include "SFML/Graphics.hpp"
 
+struct ObjectContainer;
+
 class FallingObject {
 protected:
     const int radius;
 
     sf::CircleShape object;
-
-    void Move(const float deltaTime);
 
     bool TestIfDraw(const sf::RenderWindow& window);
 
@@ -16,10 +16,14 @@ public:
         FallingObj = 0, Coin, Bomb
     };
 
+    void Move(const float deltaTime);
+    void Draw(sf::RenderWindow& window) const;
+
     virtual ObjectType GetType() const;
 
     FallingObject();
 
+    static ObjectContainer objectsContainer;
     static std::vector<std::unique_ptr<FallingObject>> objects;
     static float velocity;
     static sf::Clock timer;
@@ -51,4 +55,11 @@ public:
     Bomb(const float playerPos);
 
     ObjectType GetType() const override;
+};
+
+struct ObjectContainer {
+public:
+    std::vector<Coin> coins;
+    std::vector<Bomb> bombs;
+    int getSize() const { return coins.size() + bombs.size(); }
 };

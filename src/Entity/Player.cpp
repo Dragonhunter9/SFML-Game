@@ -27,21 +27,24 @@ void Player::Move(const sf::RenderWindow& window, const float deltaTime) {
     }
 }
 
-void Player::Collided() {
+bool Player::Collided() {
     for (std::unique_ptr<FallingObject>& loopObject : FallingObject::objects) {
-        if (ball.getGlobalBounds().intersects(loopObject->GetGlobalBounds()) && loopObject->drawObject) {
-            if (loopObject->GetType() == FallingObject::ObjectType::Coin) {
+        if (loopObject->drawObject && ball.getGlobalBounds().intersects(loopObject->GetGlobalBounds())) {
+            const FallingObject::ObjectType type = loopObject->GetType();
+            switch (type) {
+            case FallingObject::ObjectType::Coin:
                 score++;
                 loopObject->drawObject = false;
                 break;
-            }
-            if (loopObject->GetType() == FallingObject::ObjectType::Bomb) {
+            case FallingObject::ObjectType::Bomb:
                 lives--;
                 loopObject->drawObject = false;
                 break;
             }
+            return true;
         }
     }
+    return false;
 }
 
 void Player::ResetPosition(const sf::RenderWindow& window) {

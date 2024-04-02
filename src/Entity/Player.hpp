@@ -15,7 +15,7 @@ public:
 
     void Move(const sf::RenderWindow& window, const float deltaTime);
 
-    void Collided();
+    bool Collided();
 
     void ResetPosition(const sf::RenderWindow& window);
 

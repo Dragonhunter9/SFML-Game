@@ -35,30 +35,30 @@ void GameState_LevelMode::draw(const float deltaTime)
 void GameState_LevelMode::update(const float deltaTime)
 {
     if (gameStatus == Running) {
-        scoreDisplay.setString(std::to_string(player.score));
-        levelDisplay.setString("Level " + std::to_string(currentLevel + 1));
-        updateLevel();
-
         if (FallingObject::timer.getElapsedTime().asSeconds() + FallingObject::pauseTime > objectSpawnTime) {
             objectSpawnTime = Math::RandomNumber(levels[currentLevel].GetSpawnSpeed().x, levels[currentLevel].GetSpawnSpeed().y);
             FallingObject::pauseTime = 0;
             if (Math::RandomNumber(1, levels[currentLevel].GetBombPossiblity()) != levels[currentLevel].GetBombPossiblity()) {
-                FallingObject::objects.emplace_back(new Coin);
+                FallingObject::objectsContainer.coins.emplace_back();
+                //FallingObject::objects.emplace_back(new Coin);
             }
             else {
-                FallingObject::objects.emplace_back(new Bomb(player.GetPosition().x));
+                FallingObject::objectsContainer.bombs.emplace_back();
+                //FallingObject::objects.emplace_back(new Bomb(player.GetPosition().x));
             }
-
             FallingObject::timer.restart();
         }
         player.Move(game->window, deltaTime);
         FallingObject::MoveAllObjects(deltaTime);
 
-        if (player.lives < 1) {
-            gameStatus = GameOver;
+        if (player.Collided()) {
+            scoreDisplay.setString(std::to_string(player.score));
+            levelDisplay.setString("Level " + std::to_string(currentLevel + 1));
+            updateLevel();
+            if (player.lives < 1) {
+                gameStatus = GameOver;
+            }
         }
-
-        player.Collided();
     }
 }
 
@@ -102,7 +102,6 @@ void GameState_LevelMode::handleInput()
         case sf::Event::MouseButtonPressed:
             switch (event.mouseButton.button) {
             case sf::Mouse::Left:
-                break;
                 if (guiSystem.at("pauseMenu").visible) {
                     std::string msg = guiSystem.at("pauseMenu").activate((sf::Vector2f)sf::Mouse::getPosition(game->window));
                     if (msg == "pause")
@@ -112,6 +111,7 @@ void GameState_LevelMode::handleInput()
                         FallingObject::timer.restart();
                     }
                 }
+                break;
             }
             break;
         }
@@ -140,7 +140,7 @@ void GameState_LevelMode::updateLevel() {
 }
 
 void GameState_LevelMode::nextLevel() {
-    gameStatus = Running;
+    gameStatus = Running; 
     player.ResetPosition(game->window);
     //deltaTimeClock.restart();
     FallingObject::timer.restart();
@@ -157,15 +157,14 @@ void GameState_LevelMode::resetLevel() {
     gameStatus = Running;
 }
 
-void GameState_LevelMode::displayPauseScreen() {
-    GuiStyle style(&game->font, 1,
-        sf::Color(0xc6, 0xc6, 0xc6), sf::Color(0x94, 0x94, 0x94), sf::Color(0x00, 0x00, 0x00),
-        sf::Color(0x61, 0x61, 0x61), sf::Color(0x94, 0x94, 0x94), sf::Color(0x00, 0x00, 0x00));
-
-    guiSystem.emplace("pauseMenu", Gui(sf::Vector2f(192, 32), 4, false, style, {std::make_pair("Pause", "pause")}));
-
+void GameState_LevelMode::loadGUI()
+{
+    guiSystem.emplace("pauseMenu", Gui(sf::Vector2f(192, 32), 4, false, game->guiStylesheets.at("standard"), {std::make_pair("Pause", "pause")}));
     guiSystem.at("pauseMenu").setPosition(200, 200);
     guiSystem.at("pauseMenu").setOrigin(96, 16);
+}
+
+void GameState_LevelMode::displayPauseScreen() {
     guiSystem.at("pauseMenu").show();
 
     game->window.draw(guiSystem.at("pauseMenu"));
@@ -284,6 +283,7 @@ GameState_LevelMode::GameState_LevelMode(Game* game) : player(game->window),
     scoreDisplay.setPosition(sf::Vector2f(float(game->windowWidth / 2), 5));
     levelDisplay.setPosition(sf::Vector2f(5, 5));
     createLevels();
+    loadGUI();
     //guiSystem.emplace("menu", Gui(sf::Vector2f(10.0f, 10.0f), 4, false, game->guiStylesheets.at("text"), { std::make_pair("Load Game", "load_game") }));
 
     //this->guiSystem.at("menu").setPosition(sf::Vector2f(game->window.getSize()));

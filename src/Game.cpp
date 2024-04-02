@@ -7,11 +7,12 @@
 //}
 //
 
-Game::Game() : window(sf::VideoMode(windowWidth, windowHeight), "Bounce Ball", 7U)
+Game::Game() : window(sf::VideoMode(windowWidth, windowHeight), "Bounce Ball", sf::Style::Titlebar | sf::Style::Close)
                //guiStyle(&font, 1, sf::Color(0xc6, 0xc6, 0xc6), sf::Color(0x94, 0x94, 0x94), sf::Color(0x00, 0x00, 0x00), sf::Color(0x61, 0x61, 0x61), sf::Color(0x94, 0x94, 0x94), sf::Color(0x00, 0x00, 0x00))
 {
     font.loadFromFile("assets/fonts/arial.ttf");
-    window.setVerticalSyncEnabled(true);
+    loadStylesheets();
+    //window.setVerticalSyncEnabled(true);
     //window.setFramerateLimit(60);
     //loadGuiConfigs();
 }
@@ -24,6 +25,9 @@ Game::~Game()
 
 void Game::loadStylesheets()
 {
+    guiStylesheets.emplace("standard", GuiStyle(&font, 1,
+        sf::Color(0xc6, 0xc6, 0xc6), sf::Color(0x94, 0x94, 0x94), sf::Color(0x00, 0x00, 0x00),
+        sf::Color(0x61, 0x61, 0x61), sf::Color(0x94, 0x94, 0x94), sf::Color(0x00, 0x00, 0x00)));
 }
 
 void Game::pushState(GameState* state)

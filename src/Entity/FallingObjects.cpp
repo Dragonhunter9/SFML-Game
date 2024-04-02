@@ -7,6 +7,12 @@ void FallingObject::Move(const float deltaTime) {
     }
 }
 
+void FallingObject::Draw(sf::RenderWindow& window) const {
+    if (drawObject) {
+        window.draw(object);
+    }
+}
+
 bool FallingObject::TestIfDraw(const sf::RenderWindow& window) {
     if (object.getPosition().y > window.getSize().y - 15 && drawObject == true) {
         drawObject = false;
@@ -20,25 +26,65 @@ FallingObject::ObjectType FallingObject::GetType() const { return ObjectType::Fa
 FallingObject::FallingObject() : radius(10), object((float)radius), drawObject(true) {}
 
 void FallingObject::DrawAllObjects(sf::RenderWindow& window) {
-    for (const std::unique_ptr<FallingObject>& loopObject : objects) {
-        if (loopObject->drawObject) {
-            window.draw(loopObject->object);
-        }
+    for (auto& coin : objectsContainer.coins) {
+        coin.Draw(window);
     }
+
+    for (auto& bomb : objectsContainer.bombs) {
+        bomb.Draw(window);
+    }
+
+    //for (int i = 0; i < objectsContainer.getSize(); i++) {
+    //    if (i > (int)objectsContainer.coins.size() - 1) {
+    //        objectsContainer.bombs[i - objectsContainer.coins.size()].Draw(window);
+    //        continue;
+    //    }
+    //    objectsContainer.coins[i].Draw(window);
+    //}
+
+    //for (const std::unique_ptr<FallingObject>& loopObject : objects) {
+    //    if (loopObject->drawObject) {
+    //        window.draw(loopObject->object);
+    //    }
+    //}
 }
 
 void FallingObject::MoveAllObjects(const float deltaTime) {
-    for (std::unique_ptr<FallingObject>& loopObject : objects) {
-        loopObject->Move(deltaTime);
+    for (auto& coin : objectsContainer.coins) {
+        coin.Move(deltaTime);
     }
+
+    for (auto& bomb : objectsContainer.bombs) {
+        bomb.Move(deltaTime);
+    }
+
+    /*for (std::unique_ptr<FallingObject>& loopObject : objects) {
+        loopObject->Move(deltaTime);
+    }*/
 }
 
 void FallingObject::AddPoints(const sf::RenderWindow& window, unsigned int points) {
-    for (const std::unique_ptr<FallingObject>& loopObject : objects) {
-        if (loopObject->TestIfDraw(window) && loopObject->GetType() == FallingObject::ObjectType::Bomb) {
-            points++;
-        }
-    }
+    //for (int i = 0; i < objectsContainer.getSize(); i++) {
+    //    if (i > (int)objectsContainer.coins.size() - 1) {
+    //        objectsContainer.bombs[i - objectsContainer.coins.size()].Move(deltaTime);
+    //        continue;
+    //    }
+    //    objectsContainer.coins[i].Move(deltaTime);
+    //}
+
+    //for (int i = 0; i < objects.size(); i++) {
+    //    if (objects[i]->TestIfDraw(window)) {
+    //        if (objects[i]->GetType() == FallingObject::ObjectType::Bomb)
+    //            points++;
+    //        objects[i].reset();
+    //        objects.erase(objects.begin() + i);
+    //    }
+    //}
+    //for (std::unique_ptr<FallingObject>& loopObject : objects) {
+    //    if (loopObject->TestIfDraw(window) && loopObject->GetType() == FallingObject::ObjectType::Bomb) {
+    //        points++;
+    //    }
+    //}
 }
 
 sf::FloatRect FallingObject::GetGlobalBounds() const {
@@ -47,6 +93,7 @@ sf::FloatRect FallingObject::GetGlobalBounds() const {
 
 sf::Clock FallingObject::timer;
 std::vector<std::unique_ptr<FallingObject>> FallingObject::objects;
+ObjectContainer FallingObject::objectsContainer;
 float FallingObject::pauseTime;
 float FallingObject::velocity = 100.0f;
 
@@ -59,12 +106,12 @@ FallingObject::ObjectType Coin::GetType() const { return ObjectType::Coin; }
 
 Bomb::Bomb() {
     object.setFillColor(sf::Color(128, 128, 128));
-    object.setPosition((float)Math::RandomNumber(radius, 800 - radius), -20.f);
+    object.setPosition((float)Math::RandomNumber(radius, 800 - radius), -10.f);
 }
 
 Bomb::Bomb(const float playerPos) {
     object.setFillColor(sf::Color(128, 128, 128));
-    object.setPosition(playerPos, -20.f);
+    object.setPosition(playerPos, -10.f);
 }
 
 FallingObject::ObjectType Bomb::GetType() const { return ObjectType::Bomb; }
