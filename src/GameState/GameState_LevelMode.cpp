@@ -113,7 +113,7 @@ void GameState_LevelMode::handleInput()
     }
 }
 
-constexpr void GameState_LevelMode::createLevels() {
+void GameState_LevelMode::createLevels() {
     levels.reserve(5);
     levels.emplace_back(1, 10, 100.0f, sf::Vector2i(1, 5), 4);
     levels.emplace_back(2, 10, 120.0f, sf::Vector2i(1, 4), 4);
