@@ -23,7 +23,9 @@ bool FallingObject::TestIfDraw(const sf::RenderWindow& window) {
 
 FallingObject::ObjectType FallingObject::GetType() const { return ObjectType::FallingObj; }
 
-FallingObject::FallingObject() : radius(10), object((float)radius), drawObject(true) {}
+FallingObject::FallingObject() : radius(10), object((float)radius), drawObject(true) {
+    object.setOrigin(object.getRadius(), object.getRadius());
+}
 
 void FallingObject::DrawAllObjects(sf::RenderWindow& window) {
     for (auto& coin : objectsContainer.coins) {
@@ -57,29 +59,17 @@ void FallingObject::MoveAllObjects(const float deltaTime) {
     for (auto& bomb : objectsContainer.bombs) {
         bomb.Move(deltaTime);
     }
-
-    /*for (std::unique_ptr<FallingObject>& loopObject : objects) {
-        loopObject->Move(deltaTime);
-    }*/
 }
 
 void FallingObject::AddPoints(const sf::RenderWindow& window, unsigned int points) {
-    //for (int i = 0; i < objectsContainer.getSize(); i++) {
-    //    if (i > (int)objectsContainer.coins.size() - 1) {
-    //        objectsContainer.bombs[i - objectsContainer.coins.size()].Move(deltaTime);
-    //        continue;
-    //    }
-    //    objectsContainer.coins[i].Move(deltaTime);
-    //}
+    for (int i = 0; i < objectsContainer.bombs.size(); i++) {
+        if (objectsContainer.bombs[i].TestIfDraw(window)) {
+            if (objectsContainer.bombs[i].GetType() == FallingObject::ObjectType::Bomb)
+                points++;
+            objectsContainer.bombs.erase(objectsContainer.bombs.begin() + i);
+        }
+    }
 
-    //for (int i = 0; i < objects.size(); i++) {
-    //    if (objects[i]->TestIfDraw(window)) {
-    //        if (objects[i]->GetType() == FallingObject::ObjectType::Bomb)
-    //            points++;
-    //        objects[i].reset();
-    //        objects.erase(objects.begin() + i);
-    //    }
-    //}
     //for (std::unique_ptr<FallingObject>& loopObject : objects) {
     //    if (loopObject->TestIfDraw(window) && loopObject->GetType() == FallingObject::ObjectType::Bomb) {
     //        points++;

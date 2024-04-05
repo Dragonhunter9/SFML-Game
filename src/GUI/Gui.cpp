@@ -32,6 +32,8 @@ Gui::Gui(sf::Vector2f dimensions, int padding, bool horizontal, GuiStyle& style,
 
 		this->entries.emplace_back(entry.second, shape, text);
 	}
+
+	setOrigin(getSize().x / 2, getSize().y / 2);
 }
 
 sf::Vector2f Gui::getSize()

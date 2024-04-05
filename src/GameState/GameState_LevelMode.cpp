@@ -43,7 +43,7 @@ void GameState_LevelMode::update(const float deltaTime)
                 //FallingObject::objects.emplace_back(new Coin);
             }
             else {
-                FallingObject::objectsContainer.bombs.emplace_back();
+                FallingObject::objectsContainer.bombs.emplace_back(player.GetPosition().x);
                 //FallingObject::objects.emplace_back(new Bomb(player.GetPosition().x));
             }
             FallingObject::timer.restart();
@@ -51,7 +51,7 @@ void GameState_LevelMode::update(const float deltaTime)
         player.Move(game->window, deltaTime);
         FallingObject::MoveAllObjects(deltaTime);
 
-        if (player.Collided()) {
+        if (true) {//player.Collided()) {
             scoreDisplay.setString(std::to_string(player.score));
             levelDisplay.setString("Level " + std::to_string(currentLevel + 1));
             updateLevel();
@@ -81,21 +81,15 @@ void GameState_LevelMode::handleInput()
                     break;
                 case Paused:
                     gameStatus = Running;
-                    //deltaTimeClock.restart();
                     FallingObject::timer.restart();
                     break;
                 }
                 break;
             case sf::Keyboard::Enter:
-                switch (gameStatus) {
-                case GameOver:
+                if (gameStatus == GameOver)
                     resetLevel();
-                    break;
-                case Won:
-                    if (levels.size() > currentLevel)
-                        nextLevel();
-                    break;
-                }
+                else if (gameStatus == Won && levels.size() > currentLevel)
+                    nextLevel();
                 break;
         }
         break;
@@ -103,12 +97,13 @@ void GameState_LevelMode::handleInput()
             switch (event.mouseButton.button) {
             case sf::Mouse::Left:
                 if (guiSystem.at("pauseMenu").visible) {
-                    std::string msg = guiSystem.at("pauseMenu").activate((sf::Vector2f)sf::Mouse::getPosition(game->window));
-                    if (msg == "pause")
-                    {
+                    const std::string msg = guiSystem.at("pauseMenu").activate((sf::Vector2f)sf::Mouse::getPosition(game->window));
+                    if (msg == "continue") {
                         gameStatus = Running;
-                        //deltaTimeClock.restart();
                         FallingObject::timer.restart();
+                    }
+                    if (msg == "exit") {
+                        game->window.close();
                     }
                 }
                 break;
@@ -118,9 +113,9 @@ void GameState_LevelMode::handleInput()
     }
 }
 
-void GameState_LevelMode::createLevels() {
+constexpr void GameState_LevelMode::createLevels() {
     levels.reserve(5);
-    levels.emplace_back(1, 1, 100.0f, sf::Vector2i(1, 5), 4);
+    levels.emplace_back(1, 10, 100.0f, sf::Vector2i(1, 5), 4);
     levels.emplace_back(2, 10, 120.0f, sf::Vector2i(1, 4), 4);
     levels.emplace_back(3, 10, 160.0f, sf::Vector2i(1, 3), 3);
     levels.emplace_back(4, 10, 180.0f, sf::Vector2i(0, 3), 3);
@@ -131,7 +126,8 @@ void GameState_LevelMode::createLevels() {
 void GameState_LevelMode::updateLevel() {
     if (player.score + 1 > levels[currentLevel].GetRequiredScore()) {
         gameStatus = Won;
-        FallingObject::objects.clear();
+        FallingObject::objectsContainer.coins.clear();
+        FallingObject::objectsContainer.bombs.clear();
         currentLevel++;
         player.score = 0;
         player.lives = 3;
@@ -140,18 +136,22 @@ void GameState_LevelMode::updateLevel() {
 }
 
 void GameState_LevelMode::nextLevel() {
-    gameStatus = Running; 
     player.ResetPosition(game->window);
-    //deltaTimeClock.restart();
+    scoreDisplay.setString(std::to_string(player.score));
+    levelDisplay.setString("Level " + std::to_string(currentLevel + 1));
     FallingObject::timer.restart();
+
+    gameStatus = Running;
 }
 
 void GameState_LevelMode::resetLevel() {
-    FallingObject::objects.clear();
+    FallingObject::objectsContainer.coins.clear();
+    FallingObject::objectsContainer.bombs.clear();
     player.score = 0;
     player.lives = 3;
     player.ResetPosition(game->window);
-    //deltaTimeClock.restart();
+    scoreDisplay.setString(std::to_string(player.score));
+    levelDisplay.setString("Level " + std::to_string(currentLevel + 1));
     FallingObject::timer.restart();
 
     gameStatus = Running;
@@ -159,9 +159,8 @@ void GameState_LevelMode::resetLevel() {
 
 void GameState_LevelMode::loadGUI()
 {
-    guiSystem.emplace("pauseMenu", Gui(sf::Vector2f(192, 32), 4, false, game->guiStylesheets.at("standard"), {std::make_pair("Pause", "pause")}));
-    guiSystem.at("pauseMenu").setPosition(200, 200);
-    guiSystem.at("pauseMenu").setOrigin(96, 16);
+    guiSystem.emplace("pauseMenu", Gui(sf::Vector2f(192, 32), 4, false, game->guiStylesheets.at("standard"), {std::make_pair("Continue", "continue"), std::make_pair("Exit", "exit")}));
+    guiSystem.at("pauseMenu").setPosition((float)game->windowWidth / 2, (float)game->windowHeight / 2);
 }
 
 void GameState_LevelMode::displayPauseScreen() {
@@ -277,16 +276,11 @@ GameState_LevelMode::GameState_LevelMode(Game* game) : player(game->window),
         scoreDisplay(std::to_string(player.score), game->font, 24),
         //deltaTimeClock(),
         gameStatus(Running),
-        levelDisplay("Level: " + std::to_string(currentLevel + 1), game->font, 24)
+        levelDisplay("Level " + std::to_string(currentLevel + 1), game->font, 24)
 {
     this->game = game;
     scoreDisplay.setPosition(sf::Vector2f(float(game->windowWidth / 2), 5));
     levelDisplay.setPosition(sf::Vector2f(5, 5));
     createLevels();
     loadGUI();
-    //guiSystem.emplace("menu", Gui(sf::Vector2f(10.0f, 10.0f), 4, false, game->guiStylesheets.at("text"), { std::make_pair("Load Game", "load_game") }));
-
-    //this->guiSystem.at("menu").setPosition(sf::Vector2f(game->window.getSize()));
-    //this->guiSystem.at("menu").setOrigin(96, 16);
-    //this->guiSystem.at("menu").show();
 }

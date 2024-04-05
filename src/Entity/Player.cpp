@@ -2,6 +2,7 @@
 
 Player::Player(const sf::RenderWindow& window) : ball(10.0f), velocity(300.0f) {
     ball.setPosition(window.getSize().x / 2.0f, window.getSize().y / 2.0f);
+    ball.setOrigin(ball.getRadius(), ball.getRadius());
 }
 
 void Player::Move(const sf::RenderWindow& window, const float deltaTime) {
@@ -28,22 +29,22 @@ void Player::Move(const sf::RenderWindow& window, const float deltaTime) {
 }
 
 bool Player::Collided() {
-    for (std::unique_ptr<FallingObject>& loopObject : FallingObject::objects) {
-        if (loopObject->drawObject && ball.getGlobalBounds().intersects(loopObject->GetGlobalBounds())) {
-            const FallingObject::ObjectType type = loopObject->GetType();
-            switch (type) {
-            case FallingObject::ObjectType::Coin:
-                score++;
-                loopObject->drawObject = false;
-                break;
-            case FallingObject::ObjectType::Bomb:
-                lives--;
-                loopObject->drawObject = false;
-                break;
-            }
+    for (auto& coin : FallingObject::objectsContainer.coins) {
+        if (coin.drawObject && ball.getGlobalBounds().intersects(coin.GetGlobalBounds())) {
+            score++;
+            coin.drawObject = false;
             return true;
         }
     }
+
+    for (auto& bomb : FallingObject::objectsContainer.bombs) {
+        if (bomb.drawObject && ball.getGlobalBounds().intersects(bomb.GetGlobalBounds())) {
+            lives--;
+            bomb.drawObject = false;
+            return true;
+        }
+    }
+
     return false;
 }
 

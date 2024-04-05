@@ -5,8 +5,7 @@ struct ObjectContainer;
 
 class FallingObject {
 protected:
-    const int radius;
-
+    int radius;
     sf::CircleShape object;
 
     bool TestIfDraw(const sf::RenderWindow& window);
@@ -61,5 +60,5 @@ struct ObjectContainer {
 public:
     std::vector<Coin> coins;
     std::vector<Bomb> bombs;
-    int getSize() const { return coins.size() + bombs.size(); }
+    int getSize() const { return int(coins.size() + bombs.size()); }
 };

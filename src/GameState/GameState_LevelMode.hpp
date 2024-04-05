@@ -42,7 +42,7 @@ private:
 
 	std::map<std::string, Gui> guiSystem;
 
-    void createLevels();
+    constexpr void createLevels();
     void updateLevel();
     void nextLevel();
     void resetLevel();
