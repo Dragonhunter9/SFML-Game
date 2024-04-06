@@ -40,18 +40,16 @@ void GameState_LevelMode::update(const float deltaTime)
             FallingObject::pauseTime = 0;
             if (Math::RandomNumber(1, levels[currentLevel].GetBombPossiblity()) != levels[currentLevel].GetBombPossiblity()) {
                 FallingObject::objectsContainer.coins.emplace_back();
-                //FallingObject::objects.emplace_back(new Coin);
             }
             else {
                 FallingObject::objectsContainer.bombs.emplace_back(player.GetPosition().x);
-                //FallingObject::objects.emplace_back(new Bomb(player.GetPosition().x));
             }
             FallingObject::timer.restart();
         }
         player.Move(game->window, deltaTime);
         FallingObject::MoveAllObjects(deltaTime);
 
-        if (true) {//player.Collided()) {
+        if (player.Collided()) {
             scoreDisplay.setString(std::to_string(player.score));
             levelDisplay.setString("Level " + std::to_string(currentLevel + 1));
             updateLevel();
@@ -59,6 +57,9 @@ void GameState_LevelMode::update(const float deltaTime)
                 gameStatus = GameOver;
             }
         }
+    }
+    else if (gameStatus == Paused) {
+        guiSystem.at("pauseMenu").highlight(guiSystem.at("pauseMenu").getEntry((sf::Vector2f)sf::Mouse::getPosition(game->window)));
     }
 }
 
@@ -77,7 +78,7 @@ void GameState_LevelMode::handleInput()
                 switch(gameStatus) {
                 case Running:
                     gameStatus = Paused;
-                    FallingObject::pauseTime = FallingObject::timer.getElapsedTime().asSeconds();
+                    FallingObject::pauseTime += FallingObject::timer.getElapsedTime().asSeconds();
                     break;
                 case Paused:
                     gameStatus = Running;
@@ -159,7 +160,7 @@ void GameState_LevelMode::resetLevel() {
 
 void GameState_LevelMode::loadGUI()
 {
-    guiSystem.emplace("pauseMenu", Gui(sf::Vector2f(192, 32), 4, false, game->guiStylesheets.at("standard"), {std::make_pair("Continue", "continue"), std::make_pair("Exit", "exit")}));
+    guiSystem.emplace("pauseMenu", Gui(sf::Vector2f(192, 32), 10, false, game->guiStylesheets.at("standard"), { std::make_pair("Continue", "continue"), std::make_pair("Exit", "exit") }));
     guiSystem.at("pauseMenu").setPosition((float)game->windowWidth / 2, (float)game->windowHeight / 2);
 }
 

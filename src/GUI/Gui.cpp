@@ -8,11 +8,17 @@ GuiStyle::GuiStyle(sf::Font* font, float borderSize, sf::Color bodyCol, sf::Colo
 	: bodyCol(bodyCol), bodyHighlightCol(bodyHighlightCol), borderCol(borderCol), borderHighlightCol(borderHighlíghtCol), textCol(textCol), textHighlightCol(textHighlightCol), font(font), borderSize(borderSize)
 {}
 
-GuiEntry::GuiEntry() {}
+GuiEntry::GuiEntry() {
+	text.setOrigin(text.getLocalBounds().width / 2, text.getLocalBounds().height / 2);
+	shape.setOrigin(this->shape.getSize().x / 2, this->shape.getSize().y / 2);
+}
 
 GuiEntry::GuiEntry(const std::string& message, sf::RectangleShape shape, sf::Text text)
 	: message(message), shape(shape), text(text)
-{}
+{
+	this->shape.setOrigin(this->shape.getSize().x / 2, this->shape.getSize().y / 2);
+	this->text.setOrigin(this->text.getLocalBounds().width / 2, this->text.getLocalBounds().height / 2);
+}
 
 Gui::Gui(sf::Vector2f dimensions, int padding, bool horizontal, GuiStyle& style, std::vector<std::pair<std::string, std::string>> entries)
 	: visible(false), horizontal(horizontal), style(style), dimensions(dimensions), padding(padding)
@@ -28,8 +34,8 @@ Gui::Gui(sf::Vector2f dimensions, int padding, bool horizontal, GuiStyle& style,
 		text.setString(entry.first);
 		text.setFont(*style.font);
 		text.setFillColor(style.textCol);
-		text.setCharacterSize((int)(dimensions.y - style.borderSize - padding));
-
+		text.setCharacterSize((unsigned int)(dimensions.y - style.borderSize - padding));
+		
 		this->entries.emplace_back(entry.second, shape, text);
 	}
 
@@ -76,7 +82,7 @@ void Gui::setDimensions(sf::Vector2f dimensions)
 
 	for (auto& entry : this->entries) {
 		entry.shape.setSize(dimensions);
-		entry.text.setCharacterSize((int)(dimensions.y - style.borderSize - padding));
+		entry.text.setCharacterSize((unsigned int)(dimensions.y - style.borderSize - padding));
 	}
 }
 
@@ -106,7 +112,7 @@ void Gui::show() {
 		entry.text.setOrigin(origin);
 
 		entry.shape.setPosition(getPosition());
-		entry.text.setPosition(getPosition());
+		entry.text.setPosition(getPosition().x + padding, getPosition().y + (float)(padding / 2));
 
 		if (horizontal)
 			offset.x += dimensions.x;
