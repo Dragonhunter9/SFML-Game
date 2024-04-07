@@ -158,6 +158,7 @@
     <ClCompile Include="src\Entity\FallingObjects.cpp" />
     <ClCompile Include="src\GUI\Gui.cpp" />
     <ClCompile Include="src\main.cpp" />
+    <ClCompile Include="src\Manager\TextureManager.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\GameState\GameState_LevelMode.hpp" />
@@ -167,6 +168,7 @@
     <ClInclude Include="src\Entity\Player.hpp" />
     <ClInclude Include="src\Entity\FallingObjects.hpp" />
     <ClInclude Include="src\GUI\Gui.hpp" />
+    <ClInclude Include="src\Manager\TextureManager.hpp" />
     <ClInclude Include="vendor\SFML\include\SFML\Audio.hpp" />
     <ClInclude Include="vendor\SFML\include\SFML\Audio\AlResource.hpp" />
     <ClInclude Include="vendor\SFML\include\SFML\Audio\Export.hpp" />

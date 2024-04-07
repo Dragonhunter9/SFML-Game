@@ -36,6 +36,9 @@
     <ClCompile Include="src\GameState\GameState_LevelMode.cpp">
       <Filter>Quelldateien</Filter>
     </ClCompile>
+    <ClCompile Include="src\Manager\TextureManager.cpp">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="vendor\SFML\include\SFML\Audio.hpp">
@@ -522,6 +525,9 @@
       <Filter>Headerdateien</Filter>
     </ClInclude>
     <ClInclude Include="src\GameState\GameState_LevelMode.hpp">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Manager\TextureManager.hpp">
       <Filter>Headerdateien</Filter>
     </ClInclude>
   </ItemGroup>

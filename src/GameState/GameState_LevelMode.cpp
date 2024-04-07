@@ -248,4 +248,5 @@ GameState_LevelMode::GameState_LevelMode(Game* game) : player(game->window),
     levelDisplay.setPosition(sf::Vector2f(5, 5));
     createLevels();
     loadGUI();
+    player.setTexture(&game->texmgr.getRef("player"));
 }
