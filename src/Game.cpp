@@ -6,6 +6,7 @@ Game::Game() : window(sf::VideoMode(windowWidth, windowHeight), "Bounce Ball", s
 {
     font.loadFromFile("assets/fonts/arial.ttf");
     loadStylesheets();
+    loadTextures();
     //window.setVerticalSyncEnabled(true);
     //window.setFramerateLimit(60);
 }
@@ -14,6 +15,11 @@ Game::~Game()
 {
     while (!states.empty())
         popState();
+}
+
+void Game::loadTextures()
+{
+    texmgr.loadTexture("player", "assets/textures/playerTexture.png");
 }
 
 void Game::loadStylesheets()
@@ -25,7 +31,6 @@ void Game::loadStylesheets()
         sf::Color(100, 100, 255),        // bodyHighlightCol: Hellblau
         sf::Color(70, 70, 150),          // borderHighlightCol: Helleres Blau
         sf::Color::Black));              // textHighlightCol: Schwarz
-
 }
 
 void Game::pushState(GameState* state)

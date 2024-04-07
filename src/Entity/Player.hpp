@@ -5,6 +5,7 @@
 class Player : public sf::Drawable {
 private:
     sf::CircleShape ball;
+    sf::RectangleShape character;
     float velocity;
 
 public:
@@ -24,4 +25,6 @@ public:
     sf::Vector2f GetPosition() const;
 
     virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const;
+
+    void setTexture(sf::Texture* texture);
 };
