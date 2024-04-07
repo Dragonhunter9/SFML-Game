@@ -168,42 +168,6 @@ void GameState_LevelMode::displayPauseScreen() {
     guiSystem.at("pauseMenu").show();
 
     game->window.draw(guiSystem.at("pauseMenu"));
-
-    /*tgui::Gui pauseGUI(window);
-
-    auto button = tgui::Button::create("Pause");
-    button->setSize(tgui::Layout2d("50%", "12.5%"));
-    button->setPosition(tgui::Layout2d("25%", "43.75%"));
-    button->setTextSize(24);
-
-    pauseGUI.add(button);
-    pauseGUI.draw();*/
-}
-
-void GameState_LevelMode::displayTGUIWonScreen() {
-    if (levels.size() > currentLevel) {
-        //tgui::Gui wonGUI(window);
-
-        //auto panel = tgui::Panel::create();
-        //panel->setPosition(tgui::Layout2d("25%", "25%"));
-        //panel->setSize(tgui::Layout2d("50%", "50%"));
-        //wonGUI.add(panel);
-        //
-        //auto label = tgui::Label::create("Congratulations!\nLevel " + std::to_string(currentLevel) + " completed\n\nPress ENTER to continue");
-        //label->setPosition(tgui::Layout2d("25%", "35%"));
-        //label->setSize(tgui::Layout2d("50%", "50%"));
-        //label->setTextSize(24);
-        //label->setHorizontalAlignment(tgui::Label::HorizontalAlignment::Center);
-        //wonGUI.add(label);
-
-        /*auto button = tgui::Button::create("Continue");
-        button->setPosition(tgui::Layout2d("50%", "40%"));
-        button->setSize(tgui::Layout2d("40%", "10%"));
-        button->onPress(NextLevel);
-        wonGUI.add(button);*/
-
-        //wonGUI.draw();
-    }
 }
 
 void GameState_LevelMode::displayWonScreen() {
