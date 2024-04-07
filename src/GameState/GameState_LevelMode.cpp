@@ -249,4 +249,5 @@ GameState_LevelMode::GameState_LevelMode(Game* game) : player(game->window),
     createLevels();
     loadGUI();
     player.setTexture(&game->texmgr.getRef("player"));
+    Coin::tex = &game->texmgr.getRef("coin");
 }

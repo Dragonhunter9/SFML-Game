@@ -38,10 +38,14 @@ public:
     static void AddPoints(const sf::RenderWindow& window, unsigned int points);
 
     sf::FloatRect GetGlobalBounds() const;
+
+    void setTexture(const sf::Texture* texture);
 };
 
 class Coin : public FallingObject {
 public:
+    static sf::Texture* tex;
+
     Coin();
 
     ObjectType GetType() const override;
@@ -49,6 +53,9 @@ public:
 
 class Bomb : public FallingObject {
 public:
+    // Zitronen als negative Objekte
+    static sf::Texture* tex;
+
     Bomb();
 
     Bomb(const float playerPos);

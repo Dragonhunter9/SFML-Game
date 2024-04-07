@@ -2,13 +2,11 @@
 #include "GameState/GameState.hpp"
 #include "Utility/Math.hpp"
 
-Game::Game() : window(sf::VideoMode(windowWidth, windowHeight), "Bounce Ball", sf::Style::Titlebar | sf::Style::Close)
+Game::Game() : window(sf::VideoMode(windowWidth, windowHeight), "Cat Catcher", sf::Style::Titlebar | sf::Style::Close)
 {
     font.loadFromFile("assets/fonts/arial.ttf");
     loadStylesheets();
     loadTextures();
-    //window.setVerticalSyncEnabled(true);
-    //window.setFramerateLimit(60);
 }
 
 Game::~Game()
@@ -20,6 +18,7 @@ Game::~Game()
 void Game::loadTextures()
 {
     texmgr.loadTexture("player", "assets/textures/playerTexture.png");
+    texmgr.loadTexture("coin", "assets/textures/coinTexture.png");
 }
 
 void Game::loadStylesheets()

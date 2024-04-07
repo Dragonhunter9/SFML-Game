@@ -17,8 +17,8 @@ private:
 public:
     std::stack<GameState*> states;
 
-    const int windowWidth = 800;
-    const int windowHeight = 600;
+    const int windowWidth = 1024;
+    const int windowHeight = 768;
     sf::RenderWindow window;
     sf::Font font;
 
