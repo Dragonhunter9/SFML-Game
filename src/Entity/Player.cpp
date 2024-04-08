@@ -2,9 +2,6 @@
 #include "Game.hpp"
 
 Player::Player(const sf::RenderWindow& window) : character({ 40.0f, 40.0f }), velocity(300.0f), ball(20.0f) {
-    //ball.setOrigin(ball.getRadius(), ball.getRadius());
-    //ball.setPosition(window.getSize().x / 2.0f, window.getSize().y / 2.0f);
-
     character.setOrigin(character.getSize().x / 2, character.getSize().y / 2);
     character.setPosition(window.getSize().x / 2.0f, window.getSize().y / 2.0f);
 }
@@ -54,22 +51,6 @@ void Player::Move(const sf::RenderWindow& window, const float deltaTime) {
 }
 
 bool Player::Collided() {
-    /*for (auto& coin : FallingObject::objectsContainer.coins) {
-        if (coin.drawObject && ball.getGlobalBounds().intersects(coin.GetGlobalBounds())) {
-            score++;
-            coin.drawObject = false;
-            return true;
-        }
-    }
-
-    for (auto& bomb : FallingObject::objectsContainer.bombs) {
-        if (bomb.drawObject && ball.getGlobalBounds().intersects(bomb.GetGlobalBounds())) {
-            lives--;
-            bomb.drawObject = false;
-            return true;
-        }
-    }*/
-
     for (auto& coin : FallingObject::objectsContainer.coins) {
         if (coin.drawObject && character.getGlobalBounds().intersects(coin.GetGlobalBounds())) {
             score++;
@@ -90,7 +71,6 @@ bool Player::Collided() {
 }
 
 void Player::ResetPosition(const sf::RenderWindow& window) {
-    //ball.setPosition(window.getSize().x / 2.0f, window.getSize().y / 2.0f);
     character.setPosition(window.getSize().x / 2.0f, window.getSize().y / 2.0f);
 }
 
@@ -105,19 +85,15 @@ void Player::DrawLives(sf::RenderWindow& window) const {
 }
 
 sf::Vector2f Player::GetPosition() const {
-    //return ball.getPosition();
     return character.getPosition();
 }
 
 void Player::draw(sf::RenderTarget& target, sf::RenderStates states) const
 {
-    //target.draw(ball);
     target.draw(character);
 }
 
 void Player::setTexture(sf::Texture* texture)
 {
-    //sf::Texture tex = game.textures.at("playerTex");
-    //ball.setTexture(texture);
     character.setTexture(texture);
 }
