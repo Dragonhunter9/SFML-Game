@@ -115,17 +115,18 @@ void GameState_LevelMode::handleInput()
 }
 
 void GameState_LevelMode::createLevels() {
-    levels.reserve(5);
-    levels.emplace_back(1, 10, 100.0f, sf::Vector2i(1, 5), 4);
-    levels.emplace_back(2, 10, 120.0f, sf::Vector2i(1, 4), 4);
-    levels.emplace_back(3, 10, 160.0f, sf::Vector2i(1, 3), 3);
-    levels.emplace_back(4, 10, 180.0f, sf::Vector2i(0, 3), 3);
-    levels.emplace_back(5, 10, 200.0f, sf::Vector2i(0, 2), 2);
+    levels.reserve(6);
+    levels.emplace_back(1, 1, 100.0f, sf::Vector2i(1, 5), 4);
+    levels.emplace_back(2, 1, 120.0f, sf::Vector2i(1, 4), 4);
+    levels.emplace_back(3, 1, 160.0f, sf::Vector2i(1, 3), 3);
+    levels.emplace_back(4, 1, 180.0f, sf::Vector2i(0, 3), 3);
+    levels.emplace_back(5, 1, 200.0f, sf::Vector2i(0, 2), 2);
+    levels.emplace_back(6, 1, 220.0f, sf::Vector2i(0, 2), 2);
     currentLevel = 0;
 }
 
 void GameState_LevelMode::updateLevel() {
-    if (player.score + 1 > levels[currentLevel].GetRequiredScore()) {
+    if (player.score + 1 > levels[currentLevel].GetRequiredScore() && levels.size() - 1 > currentLevel) {
         gameStatus = Won;
         FallingObject::objectsContainer.coins.clear();
         FallingObject::objectsContainer.bombs.clear();
@@ -168,42 +169,6 @@ void GameState_LevelMode::displayPauseScreen() {
     guiSystem.at("pauseMenu").show();
 
     game->window.draw(guiSystem.at("pauseMenu"));
-
-    /*tgui::Gui pauseGUI(window);
-
-    auto button = tgui::Button::create("Pause");
-    button->setSize(tgui::Layout2d("50%", "12.5%"));
-    button->setPosition(tgui::Layout2d("25%", "43.75%"));
-    button->setTextSize(24);
-
-    pauseGUI.add(button);
-    pauseGUI.draw();*/
-}
-
-void GameState_LevelMode::displayTGUIWonScreen() {
-    if (levels.size() > currentLevel) {
-        //tgui::Gui wonGUI(window);
-
-        //auto panel = tgui::Panel::create();
-        //panel->setPosition(tgui::Layout2d("25%", "25%"));
-        //panel->setSize(tgui::Layout2d("50%", "50%"));
-        //wonGUI.add(panel);
-        //
-        //auto label = tgui::Label::create("Congratulations!\nLevel " + std::to_string(currentLevel) + " completed\n\nPress ENTER to continue");
-        //label->setPosition(tgui::Layout2d("25%", "35%"));
-        //label->setSize(tgui::Layout2d("50%", "50%"));
-        //label->setTextSize(24);
-        //label->setHorizontalAlignment(tgui::Label::HorizontalAlignment::Center);
-        //wonGUI.add(label);
-
-        /*auto button = tgui::Button::create("Continue");
-        button->setPosition(tgui::Layout2d("50%", "40%"));
-        button->setSize(tgui::Layout2d("40%", "10%"));
-        button->onPress(NextLevel);
-        wonGUI.add(button);*/
-
-        //wonGUI.draw();
-    }
 }
 
 void GameState_LevelMode::displayWonScreen() {
@@ -285,4 +250,6 @@ GameState_LevelMode::GameState_LevelMode(Game* game) : player(game->window),
     createLevels();
     loadGUI();
     player.setTexture(&game->texmgr.getRef("player"));
+    Coin::tex = &game->texmgr.getRef("coin");
+    Bomb::tex = &game->texmgr.getRef("bomb");
 }

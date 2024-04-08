@@ -50,7 +50,6 @@ private:
     void loadGUI();
 
     void displayPauseScreen();
-    void displayTGUIWonScreen();
     void displayWonScreen();
     void displayGameOverScreen();
 

@@ -42,6 +42,8 @@ public:
 
 class Coin : public FallingObject {
 public:
+    static sf::Texture* tex;
+
     Coin();
 
     ObjectType GetType() const override;
@@ -49,6 +51,9 @@ public:
 
 class Bomb : public FallingObject {
 public:
+    // Zitronen als negative Objekte
+    static sf::Texture* tex;
+
     Bomb();
 
     Bomb(const float playerPos);
