@@ -19,18 +19,20 @@ void Game::loadTextures()
 {
     texmgr.loadTexture("player", "assets/textures/playerTexture.png");
     texmgr.loadTexture("coin", "assets/textures/coinTexture.png");
+    texmgr.loadTexture("bomb", "assets/textures/bombTexture.png");
 }
 
 void Game::loadStylesheets()
 {
     guiStylesheets.emplace("standard", GuiStyle(&font, 2,
-        sf::Color(20, 20, 20),           // bodyCol: Dunkelgrau
+        sf::Color(120, 120, 140),        // bodyCol: Dunkles Blaugrau
         sf::Color(50, 50, 50),           // borderCol: Dunkelgrau
         sf::Color::White,                // textCol: Weiß
-        sf::Color(100, 100, 255),        // bodyHighlightCol: Hellblau
+        sf::Color(150, 150, 255),        // bodyHighlightCol: Hellblau
         sf::Color(70, 70, 150),          // borderHighlightCol: Helleres Blau
         sf::Color::Black));              // textHighlightCol: Schwarz
 }
+
 
 void Game::pushState(GameState* state)
 {
@@ -68,7 +70,7 @@ void Game::gameloop()
             continue;
         peekState()->handleInput();
         peekState()->update(deltaTime);
-        window.clear();
+        window.clear(sf::Color(100, 120, 140));
         peekState()->draw(deltaTime);
         window.display();
     }

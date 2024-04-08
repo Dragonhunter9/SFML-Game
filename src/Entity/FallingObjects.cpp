@@ -81,11 +81,6 @@ sf::FloatRect FallingObject::GetGlobalBounds() const {
     return object.getGlobalBounds();
 }
 
-void FallingObject::setTexture(const sf::Texture* texture)
-{
-    object.setTexture(texture);
-}
-
 // static variables
 sf::Clock FallingObject::timer;
 std::vector<std::unique_ptr<FallingObject>> FallingObject::objects;
@@ -94,6 +89,7 @@ float FallingObject::pauseTime;
 float FallingObject::velocity = 100.0f;
 
 sf::Texture* Coin::tex;
+sf::Texture* Bomb::tex;
 
 Coin::Coin() {
     object.setFillColor(sf::Color::Yellow);
@@ -109,8 +105,9 @@ Bomb::Bomb() {
 }
 
 Bomb::Bomb(const float playerPos) {
-    object.setFillColor(sf::Color(128, 128, 128));
+    //object.setFillColor(sf::Color(128, 128, 128));
     object.setPosition(playerPos, -10.f);
+    object.setTexture(tex);
 }
 
 FallingObject::ObjectType Bomb::GetType() const { return ObjectType::Bomb; }

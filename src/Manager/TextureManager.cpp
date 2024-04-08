@@ -4,7 +4,6 @@ void TextureManager::loadTexture(const std::string& name, const std::string& fil
 {
 	sf::Texture tex;
 	tex.loadFromFile(filename);
-
 	textures[name] = tex;
 }
 

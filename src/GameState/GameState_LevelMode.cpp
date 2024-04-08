@@ -115,17 +115,18 @@ void GameState_LevelMode::handleInput()
 }
 
 void GameState_LevelMode::createLevels() {
-    levels.reserve(5);
-    levels.emplace_back(1, 10, 100.0f, sf::Vector2i(1, 5), 4);
-    levels.emplace_back(2, 10, 120.0f, sf::Vector2i(1, 4), 4);
-    levels.emplace_back(3, 10, 160.0f, sf::Vector2i(1, 3), 3);
-    levels.emplace_back(4, 10, 180.0f, sf::Vector2i(0, 3), 3);
-    levels.emplace_back(5, 10, 200.0f, sf::Vector2i(0, 2), 2);
+    levels.reserve(6);
+    levels.emplace_back(1, 1, 100.0f, sf::Vector2i(1, 5), 4);
+    levels.emplace_back(2, 1, 120.0f, sf::Vector2i(1, 4), 4);
+    levels.emplace_back(3, 1, 160.0f, sf::Vector2i(1, 3), 3);
+    levels.emplace_back(4, 1, 180.0f, sf::Vector2i(0, 3), 3);
+    levels.emplace_back(5, 1, 200.0f, sf::Vector2i(0, 2), 2);
+    levels.emplace_back(6, 1, 220.0f, sf::Vector2i(0, 2), 2);
     currentLevel = 0;
 }
 
 void GameState_LevelMode::updateLevel() {
-    if (player.score + 1 > levels[currentLevel].GetRequiredScore()) {
+    if (player.score + 1 > levels[currentLevel].GetRequiredScore() && levels.size() - 1 > currentLevel) {
         gameStatus = Won;
         FallingObject::objectsContainer.coins.clear();
         FallingObject::objectsContainer.bombs.clear();
@@ -250,4 +251,5 @@ GameState_LevelMode::GameState_LevelMode(Game* game) : player(game->window),
     loadGUI();
     player.setTexture(&game->texmgr.getRef("player"));
     Coin::tex = &game->texmgr.getRef("coin");
+    Bomb::tex = &game->texmgr.getRef("bomb");
 }

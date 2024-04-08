@@ -38,8 +38,6 @@ public:
     static void AddPoints(const sf::RenderWindow& window, unsigned int points);
 
     sf::FloatRect GetGlobalBounds() const;
-
-    void setTexture(const sf::Texture* texture);
 };
 
 class Coin : public FallingObject {
