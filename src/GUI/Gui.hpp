@@ -5,8 +5,9 @@
 
 #include "SFML/Graphics.hpp"
 
-class GuiStyle
-{
+#include "GuiStyle.hpp"
+
+class GuiStyle {
 public:
 	sf::Color bodyCol;
 	sf::Color bodyHighlightCol;

@@ -39,6 +39,12 @@
     <ClCompile Include="src\Manager\TextureManager.cpp">
       <Filter>Quelldateien</Filter>
     </ClCompile>
+    <ClCompile Include="src\GUI\GuiStyle.cpp">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="GuiElement.cpp">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="vendor\SFML\include\SFML\Audio.hpp">
@@ -528,6 +534,12 @@
       <Filter>Headerdateien</Filter>
     </ClInclude>
     <ClInclude Include="src\Manager\TextureManager.hpp">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
+    <ClInclude Include="src\GUI\GuiStyle.hpp">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
+    <ClInclude Include="GuiElement.hpp">
       <Filter>Headerdateien</Filter>
     </ClInclude>
   </ItemGroup>

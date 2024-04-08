@@ -151,6 +151,8 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="GuiElement.cpp" />
+    <ClCompile Include="src\GUI\GuiStyle.cpp" />
     <ClCompile Include="src\GameState\GameState_LevelMode.cpp" />
     <ClCompile Include="src\Utility\Math.cpp" />
     <ClCompile Include="src\Game.cpp" />
@@ -161,6 +163,8 @@
     <ClCompile Include="src\Manager\TextureManager.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="GuiElement.hpp" />
+    <ClInclude Include="src\GUI\GuiStyle.hpp" />
     <ClInclude Include="src\GameState\GameState_LevelMode.hpp" />
     <ClInclude Include="src\Utility\Math.hpp" />
     <ClInclude Include="src\GameState\GameState.hpp" />
