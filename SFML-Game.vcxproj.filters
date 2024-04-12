@@ -39,10 +39,7 @@
     <ClCompile Include="src\Manager\TextureManager.cpp">
       <Filter>Quelldateien</Filter>
     </ClCompile>
-    <ClCompile Include="src\GUI\GuiStyle.cpp">
-      <Filter>Quelldateien</Filter>
-    </ClCompile>
-    <ClCompile Include="GuiElement.cpp">
+    <ClCompile Include="src\GameState\GameState_Start.cpp">
       <Filter>Quelldateien</Filter>
     </ClCompile>
   </ItemGroup>
@@ -536,10 +533,7 @@
     <ClInclude Include="src\Manager\TextureManager.hpp">
       <Filter>Headerdateien</Filter>
     </ClInclude>
-    <ClInclude Include="src\GUI\GuiStyle.hpp">
-      <Filter>Headerdateien</Filter>
-    </ClInclude>
-    <ClInclude Include="GuiElement.hpp">
+    <ClInclude Include="src\GameState\GameState_Start.hpp">
       <Filter>Headerdateien</Filter>
     </ClInclude>
   </ItemGroup>
