@@ -152,3 +152,11 @@ std::string Gui::activate(sf::Vector2f mousePos) {
 	int entry = getEntry(mousePos);
 	return activate(entry);
 }
+
+GuiTextbox::GuiTextbox() {}
+
+GuiTextbox::GuiTextbox(sf::RectangleShape shape, sf::Text text) : shape(shape), text(text)
+{
+	this->shape.setOrigin(this->shape.getSize().x / 2, this->shape.getSize().y / 2);
+	this->text.setOrigin(this->text.getLocalBounds().x / 2, this->text.getLocalBounds().y / 2);
+}

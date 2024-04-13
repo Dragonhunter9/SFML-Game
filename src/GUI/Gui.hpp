@@ -34,6 +34,15 @@ public:
 	GuiEntry(const std::string& message, sf::RectangleShape shape, sf::Text text);
 };
 
+class GuiTextbox {
+public:
+	sf::RectangleShape shape;
+	sf::Text text;
+
+	GuiTextbox();
+	GuiTextbox(sf::RectangleShape shape, sf::Text text);
+};
+
 class Gui : public sf::Transformable, public sf::Drawable
 {
 private:
@@ -45,6 +54,7 @@ private:
 
 public:
 	std::vector<GuiEntry> entries;
+	GuiTextbox textbox;
 	bool visible;
 
 	Gui(sf::Vector2f dimensions, int padding, bool horizontal, GuiStyle& style, std::vector<std::pair<std::string, std::string>> entries);
